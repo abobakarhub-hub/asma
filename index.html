@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إلى أسماء… فراشتي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===================== الأصول ===================== */
+:root{
+  --paper:#F7F1E3; --paper-2:#FCF8EE;
+  --ink:#39281E;   --ink-soft:#7A6455;
+  --crimson:#A93446; --crimson-deep:#8C2739;
+  --gold:#B8873A;  --gold-soft:#D9A85C;
+  --leaf:#7C7F55;  --berry:#7E2B3C;
+  --f-head:'Aref Ruqaa', serif;
+  --f-body:'Amiri', serif;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--f-body); overflow-x:hidden; min-height:100vh;
+}
+::selection{background:var(--crimson); color:var(--paper-2)}
+button{font:inherit; color:inherit}
+button:focus-visible{outline:2px dashed var(--crimson); outline-offset:4px}
+
+/* حبيبات ورق مطبوع — ملمس فقط، لا زخرفة */
+#grain{
+  position:fixed; inset:0; z-index:70; pointer-events:none; opacity:.05;
+  mix-blend-mode:multiply;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter><rect width="240" height="240" filter="url(%23n)" opacity="0.6"/></svg>');
+}
+
+/* ===================== الإطار الكبير (بطاقة) ===================== */
+.frame{position:fixed; inset:12px; z-index:60; pointer-events:none}
+.frame::before{content:""; position:absolute; inset:0; border:1px solid rgba(57,40,30,.5)}
+.frame::after {content:""; position:absolute; inset:6px; border:1px solid rgba(184,135,58,.55)}
+.frame .corner{position:absolute; width:44px; height:44px}
+.frame .corner svg{width:100%; height:100%; overflow:visible}
+.frame .corner path{stroke:var(--gold); stroke-width:1.3; fill:none}
+.frame .corner .dotA{fill:var(--crimson)} .frame .corner .dotB{fill:var(--gold)}
+.c-tl{top:9px; left:9px}
+.c-tr{top:9px; right:9px; transform:rotate(90deg)}
+.c-br{bottom:9px; right:9px; transform:rotate(180deg)}
+.c-bl{bottom:9px; left:9px; transform:rotate(270deg)}
+
+/* ===================== الفراشات (مكوّن عام) ===================== */
+.bfly{position:fixed; left:0; top:0; pointer-events:none; will-change:transform; z-index:3}
+.bfly svg{width:100%; height:100%; overflow:visible; display:block}
+.bfly .wings{
+  transform-box:view-box; transform-origin:50% 50%;
+  animation:flut var(--fd,.22s) infinite alternate ease-in-out;
+}
+@keyframes flut{from{transform:scaleX(1)} to{transform:scaleX(.28)}}
+.bfly .body{fill:var(--ink)}
+.bfly .body path{fill:none; stroke:var(--ink); stroke-width:1.1; stroke-linecap:round}
+.bfly .wu,.bfly .wd{stroke:rgba(57,40,30,.28); stroke-width:1}
+.bfly .vein{fill:none; stroke-width:.9; opacity:.6}
+
+.t-crimson .wu{fill:#A93446} .t-crimson .wd{fill:#8C2739}
+.t-crimson .sp{fill:#F8F3E7} .t-crimson .vein{stroke:#F8F3E7}
+.t-gold .wu{fill:#C08A3E} .t-gold .wd{fill:#9E6E2B}
+.t-gold .sp{fill:#F8F3E7} .t-gold .vein{stroke:#F8F3E7}
+.t-berry .wu{fill:#7E2B3C} .t-berry .wd{fill:#63212F}
+.t-berry .sp{fill:#D9A85C} .t-berry .vein{stroke:#D9A85C}
+.t-ink .wu,.t-ink .wd{fill:#F8F3E7; stroke:#3A2A1F; stroke-width:1.7}
+.t-ink .sp{fill:#A93446} .t-ink .vein{stroke:#3A2A1F}
+.t-hero .wu{fill:#A93446} .t-hero .wd{fill:#8C2739}
+.t-hero .sp{fill:#D9A85C} .t-hero .vein{stroke:#F8F3E7}
+
+/* فراشات ثابتة (نقوش مطبوعة) */
+.bfly-static{position:relative; display:inline-block; width:38px; height:38px}
+.bfly-static .wings{animation:none}
+.mini-bfly{position:relative; display:inline-block; width:17px; height:17px; vertical-align:-3px; margin-inline-end:6px}
+.mini-bfly .wings{animation:none}
+
+/* ===================== الحديقة السفلية ===================== */
+#garden{position:fixed; left:0; right:0; bottom:0; height:clamp(90px,16vh,150px); z-index:2; pointer-events:none}
+#garden svg{width:100%; height:100%; display:block}
+#garden .stem{transform-box:fill-box; transform-origin:50% 100%;
+  animation:sway var(--swd,5s) ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-1.6deg)} to{transform:rotate(1.6deg)}}
+
+/* ===================== الأزرار ===================== */
+.btn{
+  font-family:var(--f-head); font-size:1.3rem; line-height:1.6;
+  padding:.42em 1.6em; border-radius:999px; cursor:pointer;
+  user-select:none; -webkit-user-select:none; position:relative; background:none;
+}
+.btn-look-yes{
+  background:var(--crimson); color:var(--paper-2);
+  border:1px solid var(--crimson-deep);
+  box-shadow:0 14px 28px -14px rgba(140,39,57,.55);
+}
+.btn-look-yes::after{
+  content:""; position:absolute; inset:4px; border-radius:inherit;
+  border:1px solid rgba(252,248,238,.5); pointer-events:none;
+}
+.btn-look-yes:hover{box-shadow:0 20px 34px -14px rgba(140,39,57,.6)}
+.btn-ghost{
+  background:transparent; color:var(--ink-soft);
+  border:1px solid rgba(122,100,85,.55); font-size:1.05rem;
+}
+.btn-ghost:hover{color:var(--ink); border-color:var(--ink-soft)}
+
+/* زرُّ نعم — ينمو مع كل محاولة هروب */
+#yesBtn{
+  --gs:1;
+  transform:scale(var(--gs));
+  transition:transform .5s cubic-bezier(.2,1.3,.4,1), box-shadow .3s;
+}
+#yesBtn:hover{transform:scale(var(--gs)) translateY(-3px)}
+#yesBtn:active{transform:scale(var(--gs)) translateY(0)}
+
+/* زرُّ لا — الهارب (بلا transition على transform حتى تُصبح حركة الطيران فورية) */
+#noBtn{background:transparent; color:var(--ink); border:1px solid var(--ink-soft); z-index:1}
+#noBtn.became-yes{cursor:pointer}
+.nb-txt{display:inline-block; min-width:1.2em; transition:opacity .3s}
+#noBtn.surrender{animation:shake .6s ease}
+@keyframes shake{
+  0%,100%{margin-top:0} 15%{margin-top:-7px} 30%{margin-top:6px}
+  45%{margin-top:-5px} 60%{margin-top:4px} 80%{margin-top:-2px}
+}
+/* جناحا زرّ لا */
+.nb-wing{
+  position:absolute; top:50%; width:30px; height:30px;
+  opacity:0; transform:translateY(-50%) scale(0);
+  transition:transform .45s cubic-bezier(.2,1.4,.4,1), opacity .35s;
+  z-index:-1;
+}
+.nb-wing svg{width:100%; height:100%; overflow:visible; display:block}
+.nb-wing .wu{fill:var(--crimson)} .nb-wing .wd{fill:var(--crimson-deep)}
+.nb-wing .sp{fill:var(--paper-2)} .nb-wing .vein{stroke:rgba(252,248,238,.55)}
+#noBtn.winged .nb-wing{
+  opacity:1; transform:translateY(-50%) scale(1);
+  animation:wingflap .3s infinite alternate ease-in-out;
+}
+.nw-l{right:calc(100% - 12px); transform-origin:100% 50%}
+.nw-r{left:calc(100% - 12px);  transform-origin:0 50%}
+@keyframes wingflap{from{transform:translateY(-50%) scaleX(1)} to{transform:translateY(-50%) scaleX(.35)}}
+#noBtn.surrender .nb-wing{animation:none; transform:translateY(24px) rotate(55deg) scale(.55); opacity:0}
+
+/* ===================== الغلاف ===================== */
+#cover{
+  position:fixed; inset:0; z-index:30;
+  display:grid; place-content:center; text-align:center; gap:clamp(.9rem,2.6vh,1.5rem);
+  padding:8vh 8vw; transition:opacity .9s ease, transform .9s ease;
+}
+#cover.gone{opacity:0; transform:translateY(-6vh); pointer-events:none}
+.cov-eyebrow{
+  font-weight:700; color:var(--gold); font-size:clamp(.95rem,2.6vw,1.15rem);
+  animation:rise 1s .15s both;
+}
+.cov-name{
+  font-family:var(--f-head); font-weight:400; color:var(--ink);
+  font-size:clamp(4.6rem,17vw,9.5rem); line-height:1.55;
+  animation:riseName 1.3s .4s both;
+}
+.flourish{width:min(64vw,300px); margin:0 auto; display:block; overflow:visible}
+.flourish .fp{stroke:var(--gold); stroke-width:1.4; fill:none; stroke-linecap:round}
+.flourish .f2{opacity:.5}
+.flourish .fp{stroke-dasharray:420; stroke-dashoffset:420; animation:draw 1.6s .9s forwards ease}
+.flourish .fdot{fill:var(--crimson)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.cov-text{
+  color:var(--ink-soft); font-size:clamp(1.02rem,2.8vw,1.2rem);
+  line-height:2.2; max-width:36ch; margin-inline:auto;
+  animation:rise 1s 1.15s both;
+}
+#openBtn{animation:rise 1s 1.45s both; justify-self:center}
+#openBtn:hover{transform:translateY(-3px)}
+.cov-tip{
+  color:var(--ink-soft); opacity:.8; font-style:italic; font-size:.92rem;
+  animation:rise 1s 1.8s both;
+}
+@keyframes rise{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
+@keyframes riseName{from{opacity:0; transform:scale(.9); filter:blur(6px)} to{opacity:1; transform:none; filter:none}}
+
+/* ===================== المسرح والبطاقة ===================== */
+#stage{
+  min-height:100svh; display:grid; place-items:center;
+  padding:5vh 4vw 14vh; position:relative; z-index:10;
+  opacity:0; visibility:hidden; transform:translateY(22px);
+  transition:opacity .8s .25s ease, transform .8s .25s ease, visibility 0s .9s;
+}
+#stage.on{opacity:1; visibility:visible; transform:none; transition:opacity .8s .25s ease, transform .8s .25s ease}
+.card{
+  position:relative; width:min(92vw,600px); text-align:center;
+  background:var(--paper-2);
+  border:1px solid rgba(57,40,30,.35);
+  box-shadow:0 30px 60px -30px rgba(57,40,30,.3);
+  padding:clamp(1.8rem,6vw,3.2rem) clamp(1.3rem,5vw,3rem);
+}
+.card::before{content:""; position:absolute; inset:8px; border:1px solid rgba(184,135,58,.5); pointer-events:none}
+.crest{display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:.6rem}
+.crest .cr-line{width:clamp(50px,14vw,86px); height:12px; overflow:visible}
+.crest .cr-line path{stroke:var(--gold); stroke-width:1.2; fill:none; stroke-linecap:round; opacity:.85}
+.views{display:grid}
+.view{
+  grid-area:1/1; opacity:0; visibility:hidden; transform:translateY(16px);
+  transition:opacity .65s ease, transform .65s ease, visibility 0s .65s;
+}
+.view.on{opacity:1; visibility:visible; transform:none; transition:opacity .65s ease, transform .65s ease}
+.eyebrow{color:var(--gold); font-weight:700; font-size:clamp(.92rem,2.6vw,1.05rem); margin-bottom:.2rem}
+.ask-title{
+  font-family:var(--f-head); font-weight:700; color:var(--ink);
+  font-size:clamp(2.6rem,8vw,4.4rem); line-height:1.9; margin-bottom:.4rem;
+}
+.love-title{
+  font-family:var(--f-head); font-weight:700; color:var(--crimson-deep);
+  font-size:clamp(1.9rem,6vw,3rem); line-height:1.9; margin-bottom:1rem;
+}
+.hint{
+  color:var(--ink-soft); font-size:.95rem; line-height:2;
+  display:grid; gap:.15rem; margin-bottom:1.4rem;
+}
+.hint .hint2{opacity:.75; font-style:italic; font-size:.88rem}
+.btns{
+  display:flex; justify-content:space-evenly; align-items:center;
+  min-width:min(78vw,290px); margin-inline:auto; gap:10px;
+  min-height:74px;
+}
+.flee-msg{
+  min-height:2.4em; margin-top:1.1rem; color:var(--crimson-deep);
+  font-style:italic; font-size:1.02rem; line-height:1.9;
+}
+.flee-msg.pop{animation:pop .55s ease}
+@keyframes pop{from{opacity:0; transform:translateY(8px) scale(.96)} to{opacity:1; transform:none}}
+.tries{min-height:1.8em; color:var(--ink-soft); font-size:.9rem; opacity:.9}
+
+/* ===================== رسالة الحب ===================== */
+.line{
+  display:block; opacity:0; transform:translateY(16px); filter:blur(3px);
+  transition:opacity .9s ease, transform .9s ease, filter .9s ease;
+  font-size:clamp(1.02rem,2.7vw,1.28rem); line-height:2.35; margin-block:.3em;
+}
+.line.show{opacity:1; transform:none; filter:none}
+.actions{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; margin-top:1.6rem;
+  opacity:0; transform:translateY(12px); transition:opacity .8s ease, transform .8s ease;
+}
+.actions.on{opacity:1; transform:none}
+#loveView .flourish{width:min(46vw,220px); margin-top:1rem}
+#loveView .flourish .fp{stroke-dasharray:none; stroke-dashoffset:0; animation:none}
+
+/* ===================== الفراشة البطلة والوابل ===================== */
+#heroBfly{position:fixed; left:0; top:0; z-index:35; pointer-events:none; will-change:transform}
+#burstLayer{position:fixed; inset:0; z-index:45; pointer-events:none; overflow:hidden}
+
+@media (max-width:560px){
+  .btn{font-size:1.12rem}
+  .btns{min-width:88vw}
+  .nb-wing{width:26px; height:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bfly .wings, #garden .stem, .flourish .fp{animation:none !important}
+  #noBtn.winged .nb-wing{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div id="grain"></div>
+<div id="garden"></div>
+<div id="burstLayer"></div>
+
+<!-- إطار البطاقة الكبرى وزواياها -->
+<div class="frame" aria-hidden="true">
+  <span class="corner c-tl"></span><span class="corner c-tr"></span>
+  <span class="corner c-br"></span><span class="corner c-bl"></span>
+</div>
+
+<!-- الغلاف -->
+<section id="cover">
+  <p class="cov-eyebrow">إلى فراشتي الصغيرة</p>
+  <h1 class="cov-name">أسماء</h1>
+  <svg class="flourish" viewBox="0 0 320 26" aria-hidden="true">
+    <path class="fp"    d="M8,14 C70,2 110,26 160,13 C210,0 250,26 312,12"/>
+    <path class="fp f2" d="M40,18 C90,10 130,22 160,16 C190,10 230,22 280,15"/>
+    <circle class="fdot" cx="160" cy="13.5" r="2.6"/>
+  </svg>
+  <p class="cov-text">في حديقةِ قلبي فراشةٌ واحدةٌ لا تُشبه باقي الفراشات…<br>وهذه الصفحةُ هديّةٌ لها وحدَها.</p>
+  <button id="openBtn" class="btn btn-look-yes">افتحي هديّتكِ</button>
+  <p class="cov-tip">حرّكي يدَكِ على الشاشة… الفراشاتُ ستتبعُكِ.</p>
+</section>
+
+<!-- المسرح -->
+<main id="stage">
+  <div class="card" id="card">
+    <div class="crest" aria-hidden="true">
+      <svg class="cr-line" viewBox="0 0 90 12"><path d="M4,6 C30,1 60,11 86,5"/></svg>
+      <span class="bfly-static" data-bfly="ink"></span>
+      <svg class="cr-line" viewBox="0 0 90 12"><path d="M4,5 C30,11 60,1 86,6"/></svg>
+    </div>
+
+    <div class="views">
+      <!-- منظر السؤال -->
+      <section class="view on" id="askView">
+        <p class="eyebrow">أسماء…</p>
+        <h1 class="ask-title">هل تُحِبّينَني؟</h1>
+        <p class="hint">
+          <span>تحذيرٌ ودود: زرُّ «لا» لا يقبلُ أن يُضغَطَ عليه… جرّبي وسترين.</span>
+          <span class="hint2">وانقري في أيّ مكانٍ فارغ؛ فكلُّ نقرةٍ تُولِّد فراشةً جديدة.</span>
+        </p>
+        <div class="btns">
+          <button id="yesBtn" class="btn btn-look-yes">نعم</button>
+          <button id="noBtn" class="btn" aria-label="لا (جرّبي إن استطعتِ)">
+            <span class="nb-wing nw-l" aria-hidden="true"></span>
+            <span class="nb-wing nw-r" aria-hidden="true"></span>
+            <span class="nb-txt">لا</span>
+          </button>
+        </div>
+        <p class="flee-msg" id="fleeMsg" aria-live="polite"></p>
+        <p class="tries" id="tries"></p>
+      </section>
+
+      <!-- منظر الرسالة -->
+      <section class="view" id="loveView">
+        <p class="eyebrow" id="loveEyebrow"></p>
+        <h2 class="love-title" id="loveTitle"></h2>
+        <p class="line">أسماء… يا فراشتي الجميلة،</p>
+        <p class="line">أنتِ الفراشةُ التي حلّقت في سماءِ حياتي، فحوّلتِ كلَّ ربيعٍ عابرٍ إلى وطنٍ دائم.</p>
+        <p class="line">منذ عرفتُكِ صار للونِ معنًى، وصار لصمتِي شجنٌ حلو، وصار قلبي حديقةً لا تطمئنُّ إلا إذا حطّتِ عليها.</p>
+        <p class="line">عيناكِ جناحانِ لا ينامان، وضحكتُكِ رشّةُ ضوءٍ تمحو عن يومي تعبَه،</p>
+        <p class="line">وحنونُكِ ذاك الهدوءُ الذي أفتّشُ عنه في كلّ زحامٍ فلا أجدُه إلا معكِ.</p>
+        <p class="line">أحبُّكِ بمقدارِ ما للفراشاتِ من ألوان، وبمقدارِ ما للربيعِ من وعودٍ صادقة.</p>
+        <p class="line">فابقَي جناحَيَّ يا أسماء… وابقَي فراشتِي التي لا تطيرُ إلا إليّ.</p>
+        <svg class="flourish" viewBox="0 0 320 26" aria-hidden="true">
+          <path class="fp"    d="M8,14 C70,2 110,26 160,13 C210,0 250,26 312,12"/>
+          <path class="fp f2" d="M40,18 C90,10 130,22 160,16 C190,10 230,22 280,15"/>
+          <circle class="fdot" cx="160" cy="13.5" r="2.6"/>
+        </svg>
+        <div class="actions" id="actions">
+          <button id="moreBtn"   class="btn btn-ghost"><span class="mini-bfly" data-bfly="crimson"></span>أطلقي فراشاتٍ أكثر</button>
+          <button id="replayBtn" class="btn btn-ghost">اقرئيها مرّةً أخرى</button>
+          <button id="resetBtn"  class="btn btn-ghost">من البداية</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script>
+'use strict';
+/* ================= أدوات ================= */
+const $ = s => document.querySelector(s);
+const rnd = (a,b) => a + Math.random()*(b-a);
+const clamp = (v,a,b) => Math.min(b, Math.max(a,v));
+const AR = n => n.toLocaleString('ar-EG');            // أرقام هندية
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NS = 'http://www.w3.org/2000/svg';
+
+/* ================= مكوّن الفراشة (SVG) ================= */
+const WING = `
+  <path class="wu"   d="M5,-8 C22,-40 56,-44 54,-18 C52,-2 32,4 6,0 Z"/>
+  <path class="wd"   d="M6,2 C24,6 36,26 26,40 C17,50 5,38 5,10 Z"/>
+  <path class="vein" d="M8,-6 C22,-16 36,-24 48,-20 M8,0 C18,6 26,18 24,32"/>
+  <circle class="sp" cx="38" cy="-26" r="4"/>
+  <circle class="sp" cx="44" cy="-16" r="2.4"/>
+  <circle class="sp" cx="17" cy="24"  r="2.6"/>`;
+
+function butterflySVG(){
+  return `<svg viewBox="-50 -50 100 100" aria-hidden="true">
+    <g class="wings">
+      <g>${WING}</g>
+      <g transform="scale(-1 1)">${WING}</g>
+    </g>
+    <g class="body">
+      <ellipse cx="0" cy="2" rx="3" ry="13"/>
+      <circle cx="0" cy="-13" r="3.4"/>
+      <path d="M-1,-15 C-4,-22 -8,-25 -11,-27 M1,-15 C4,-22 8,-25 11,-27"/>
+      <circle cx="-11" cy="-27" r="1.5"/><circle cx="11" cy="-27" r="1.5"/>
+    </g>
+  </svg>`;
+}
+/* جناح واحد (لأجنحة زرّ «لا») */
+const ONE_WING = `<svg viewBox="0 -46 62 92" aria-hidden="true">${WING}</svg>`;
+
+/* ملء العناصر المعلّمة بفراشات مطبوعة */
+document.querySelectorAll('[data-bfly]').forEach(el=>{
+  el.innerHTML = butterflySVG();
+  el.classList.add('t-'+el.dataset.bfly);
+});
+document.querySelectorAll('.nb-wing').forEach(el=> el.innerHTML = ONE_WING );
+
+/* زوايا الإطار */
+const CORNER = `<svg viewBox="0 0 64 64">
+  <path d="M6,34 C6,17 17,6 34,6"/>
+  <path d="M6,48 C6,24 24,6 48,6" opacity=".45"/>
+  <circle class="dotA" cx="13" cy="13" r="2.6"/>
+  <circle class="dotB" cx="22" cy="22" r="1.4" opacity=".75"/></svg>`;
+document.querySelectorAll('.frame .corner').forEach(c=> c.innerHTML = CORNER);
+
+/* ================= الحالة العامة ================= */
+const S = {
+  state:'cover', attempts:0, mx:innerWidth/2, my:innerHeight/2,
+  lastP:-9999, pointerOn:false
+};
+const TYPES = ['t-crimson','t-gold','t-berry','t-ink','t-crimson','t-gold'];
+const pickType = () => TYPES[Math.floor(Math.random()*TYPES.length)];
+
+const cover=$('#cover'), stage=$('#stage'), card=$('#card');
+const askView=$('#askView'), loveView=$('#loveView');
+const yesBtn=$('#yesBtn'), noBtn=$('#noBtn'), noTxt=noBtn.querySelector('.nb-txt');
+const fleeMsgEl=$('#fleeMsg'), triesEl=$('#tries'), actionsEl=$('#actions');
+
+/* ================= سماء الفراشات ================= */
+const flyers = [];
+const MAXF = 22;
+function makeFlyerEl(type, size){
+  const el = document.createElement('div');
+  el.className = 'bfly ' + type;
+  el.style.width = el.style.height = size + 'px';
+  el.style.setProperty('--fd', rnd(.16,.3).toFixed(2)+'s');
+  el.innerHTML = butterflySVG();
+  return el;
+}
+function spawnFlyer(x, y, grow){
+  const size = rnd(16,30);
+  const el = makeFlyerEl(pickType(), grow ? size*.25 : size);
+  document.body.appendChild(el);
+  if(grow){
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      el.style.transition='width .6s ease, height .6s ease';
+      el.style.width = el.style.height = size+'px';
+    }));
+  }
+  flyers.push({el, x, y, size, a:rnd(0,Math.PI*2), sp:rnd(.5,1.4), ph:rnd(0,Math.PI*2), dir:1});
+  if(flyers.length > MAXF){                    // أقدم فراشة تودّع بلطف
+    const old = flyers.shift();
+    old.el.style.transition='opacity .8s'; old.el.style.opacity='0';
+    setTimeout(()=>old.el.remove(), 850);
+  }
+}
+function initSky(){
+  const n = innerWidth < 720 ? 8 : 13;
+  for(let i=0;i<n;i++) spawnFlyer(rnd(0,innerWidth), rnd(0,innerHeight), false);
+}
+
+/* ================= الفراشة البطلة ================= */
+const hero = { el: makeFlyerEl('t-hero', 56), x:innerWidth/2, y:120 };
+hero.el.id='heroBfly';
+document.body.appendChild(hero.el);
+let cardRect = null;
+function measureCard(){ cardRect = card.getBoundingClientRect(); }
+function updateHero(dn, now){
+  if(!cardRect) measureCard();
+  const cx = cardRect.left + cardRect.width/2;
+  const tx = cx + Math.cos(now*0.0006) * Math.min(cardRect.width*.55, 150);
+  const ty = cardRect.top  - 46 + Math.sin(now*0.0013) * 22;
+  const px = hero.x, py = hero.y;
+  hero.x += (tx-hero.x)*0.045*dn;
+  hero.y += (ty-hero.y)*0.045*dn;
+  const dir = (hero.x-px) >= 0 ? 1 : -1;
+  const tilt = clamp((hero.y-py)*1.2, -18, 18);
+  hero.el.style.transform =
+    `translate3d(${hero.x-28}px,${hero.y-28}px,0) scaleX(${dir}) rotate(${tilt}deg)`;
+}
+
+/* ================= وابل الفراشات (الجسيمات) ================= */
+const particles = [];
+function burst(x, y, n=60, up=false){
+  for(let i=0;i<n;i++){
+    const size = rnd(10,22);
+    const el = makeFlyerEl(pickType(), size);
+    $('#burstLayer').appendChild(el);
+    const a = up ? rnd(-Math.PI*.82,-Math.PI*.18) : rnd(0,Math.PI*2);
+    const sp = up ? rnd(3.5,8) : rnd(1.5,6.5);
+    particles.push({
+      el, x, y, size,
+      vx:Math.cos(a)*sp, vy:Math.sin(a)*sp - (up?0:rnd(1,3)),
+      rot:rnd(-25,25), vr:rnd(-4,4), dir:Math.cos(a)>=0?1:-1,
+      life:0, max:rnd(130,220), ph:rnd(0,Math.PI*2)
+    });
+  }
+}
+function updateParticles(dn){
+  for(let i=particles.length-1;i>=0;i--){
+    const p = particles[i];
+    p.life += dn;
+    p.vy -= 0.05*dn;                    // الفراشات تحلّق نحو الأعلى
+    p.vx *= Math.pow(.985, dn);
+    p.x  += p.vx*dn + Math.sin(p.life*.15+p.ph)*.6*dn;
+    p.y  += p.vy*dn;
+    p.rot += p.vr*dn;
+    const t = p.life/p.max;
+    p.el.style.opacity = t<.6 ? 1 : String(Math.max(0, 1-(t-.6)/.4));
+    const sc = 1 - .35*t;
+    p.el.style.transform =
+      `translate3d(${p.x-p.size/2}px,${p.y-p.size/2}px,0) rotate(${p.rot}deg) scaleX(${p.dir}) scale(${sc})`;
+    if(t>=1){ p.el.remove(); particles.splice(i,1); }
+  }
+}
+
+/* ================= حركة سماء الفراشات ================= */
+function updateFlyers(dn){
+  const near = S.pointerOn && (performance.now()-S.lastP < 1800);
+  for(const f of flyers){
+    f.ph += .06*dn*(.8+f.sp*.3);
+    if(near){
+      const dx=S.mx-f.x, dy=S.my-f.y, d=Math.hypot(dx,dy);
+      if(d<260 && d>24){
+        const ta=Math.atan2(dy,dx);
+        let diff=((ta-f.a+Math.PI*3)%(Math.PI*2))-Math.PI;
+        f.a += diff*.06*dn;
+      }
+    }else{
+      f.a += Math.sin(f.ph*.7)*.03*dn + rnd(-.02,.02)*dn;
+    }
+    const v = f.sp*dn*.9*(near?1.35:1);
+    f.x += Math.cos(f.a)*v;
+    f.y += Math.sin(f.a)*v*.7 + Math.sin(f.ph)*.35*dn;
+    if(f.x<-70) f.x=innerWidth+70; else if(f.x>innerWidth+70) f.x=-70;
+    if(f.y<-70) f.y=innerHeight+70; else if(f.y>innerHeight+70) f.y=-70;
+    const dir = Math.cos(f.a)>=0 ? 1 : -1;
+    const tilt = clamp(Math.sin(f.a)*26, -28, 28);
+    f.el.style.transform =
+      `translate3d(${f.x-f.size/2}px,${f.y-f.size/2}px,0) scaleX(${dir}) rotate(${tilt}deg)`;
+  }
+}
+
+/* ================= زرّ «لا» الهارب ================= */
+const FLEE_MSGS = [
+  'أوه! يبدو أنّ زرَّ «لا» خجولٌ قليلًا.',
+  'سريعٌ، أليس كذلك؟ تدريبٌ جيّدٌ لقلبكِ.',
+  'لا تحزني… حتى الأزرارُ تخاف أن تقول «لا» لحبيبها.',
+  'زرُّ «لا» صار خفيفَ الحركة… أتوقّع له جناحين بعد قليل.',
+  'ها هما الجناحان! ألم أقل لكِ إنه فراشةٌ متنكّرة؟',
+  'كلُّ هذا التطييرُ كي لا تقولي «لا»؟ نعم… أستحقّها.',
+  'جناحاه بدآ يثقلان… لكنّه ما زال يطير بعناد.'
+];
+const MAX_TRY = 8;
+let noFixed=false, noState=null, curX=null, curY=null, nw=0, nh=0;
+
+function setFleeMsg(txt){
+  fleeMsgEl.textContent = txt;
+  fleeMsgEl.classList.remove('pop');
+  void fleeMsgEl.offsetWidth;
+  fleeMsgEl.classList.add('pop');
+}
+function fleeTarget(){
+  const yr = yesBtn.getBoundingClientRect();
+  const yc = {x:yr.left+yr.width/2, y:yr.top+yr.height/2};
+  for(let i=0;i<24;i++){
+    const x = rnd(70, innerWidth-70), y = rnd(76, innerHeight-84);
+    if(Math.hypot(x-yc.x, y-yc.y) < 180) continue;
+    if(curX!=null && Math.hypot(x-(curX+nw/2), y-(curY+nh/2)) < 140) continue;
+    return {x,y};
+  }
+  return {x:rnd(80, innerWidth-80), y:rnd(90, 130)};
+}
+function fixNoButton(){
+  const r = noBtn.getBoundingClientRect();
+  nw = r.width; nh = r.height;
+  curX = r.left; curY = r.top;
+  noBtn.style.position='fixed';
+  noBtn.style.left='0px'; noBtn.style.top='0px';
+  noBtn.style.margin='0'; noBtn.style.zIndex='40';
+  noFixed = true;
+}
+const qb=(a,c,b,t)=>{const u=1-t; return u*u*a + 2*u*t*c + t*t*b;};
+const easeIO = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+
+function startFlee(){
+  if(noState || S.state!=='ask' || noBtn.classList.contains('became-yes')) return;
+  S.attempts++;
+  if(S.attempts >= MAX_TRY){ surrender(); return; }
+
+  if(!noFixed) fixNoButton();
+  if(S.attempts >= 5) noBtn.classList.add('winged');
+  setFleeMsg(FLEE_MSGS[Math.min(S.attempts-1, FLEE_MSGS.length-1)]);
+  triesEl.textContent =
+    `محاولات الإمساكِ بـ«لا»: ${AR(S.attempts)}… وفشلت جميعُها بجدارة.`;
+
+  /* زرُّ نعم يكبر، وزرُّ لا يضمحل */
+  const k = Math.min(S.attempts, 7);
+  yesBtn.style.setProperty('--gs', (1 + k*.055).toFixed(3));
+  const noScale = 1 - k*.03;
+
+  /* أثر فراشاتٍ صغيرة عند الموقع القديم */
+  burst(curX+nw/2, curY+nh/2, 3 + Math.min(S.attempts,4), false);
+
+  const from = {x:curX, y:curY};
+  const t = fleeTarget();
+  const to = {x:t.x-nw/2, y:t.y-nh/2};
+  const ctrl = { x:(from.x+to.x)/2 + rnd(-170,170),
+                 y:(from.y+to.y)/2 + rnd(-170,170) };
+  noState = {from, ctrl, to, t0:performance.now(), dur:rnd(620,780), sc:noScale};
+}
+function updateNoFlight(now){
+  if(!noState) return;
+  let t = (now-noState.t0)/noState.dur;
+  if(t>1) t=1;
+  const e = easeIO(t);
+  const x = qb(noState.from.x, noState.ctrl.x, noState.to.x, e);
+  const y = qb(noState.from.y, noState.ctrl.y, noState.to.y, e);
+  const wob = Math.sin(t*Math.PI*2.5)*(1-t)*10;
+  noBtn.style.transform =
+    `translate(${x}px,${y}px) rotate(${wob.toFixed(1)}deg) scale(${noState.sc})`;
+  if(t>=1){ curX=noState.to.x; curY=noState.to.y; noState=null; }
+}
+function surrender(){
+  noState = null;
+  noBtn.classList.add('surrender');
+  setFleeMsg('استسلم زرُّ «لا»! حتى هو صار يقول: نعم.');
+  triesEl.textContent = 'انتهت المطاردة. النتيجة النهائية: الحبُّ ٨، و«لا» صفر.';
+  setTimeout(()=>{
+    noBtn.classList.add('became-yes','btn-look-yes');
+    noTxt.textContent = 'نعم أيضًا';
+  }, 650);
+}
+
+/* أحداث زرّ «لا»: يفلت قبل أن تلمسيه — فأرًا كان أم إصبعًا أم لوحة مفاتيح */
+noBtn.addEventListener('pointerenter', e=>{ if(e.pointerType==='mouse') startFlee(); });
+noBtn.addEventListener('pointerdown',  e=>{ e.preventDefault(); startFlee(); });
+noBtn.addEventListener('click', ()=>{
+  if(noBtn.classList.contains('became-yes')) celebrate(true);
+  else startFlee();
+});
+noBtn.addEventListener('keydown', e=>{
+  if(e.key==='Enter'||e.key===' '){ e.preventDefault(); startFlee(); }
+});
+
+/* ================= الاحتفال ورسالة الحب ================= */
+function revealLines(){
+  const lines = [...loveView.querySelectorAll('.line')];
+  lines.forEach(el=>el.classList.remove('show'));
+  void loveView.offsetWidth;
+  lines.forEach((el,i)=> el.style.transitionDelay = (0.25 + i*0.42)+'s');
+  requestAnimationFrame(()=> lines.forEach(el=>el.classList.add('show')));
+  actionsEl.classList.remove('on');
+  setTimeout(()=> actionsEl.classList.add('on'), 4600);
+}
+function celebrate(fromNo){
+  if(S.state!=='ask') return;
+  S.state='love';
+  const src = fromNo ? noBtn : yesBtn;
+  const r = src.getBoundingClientRect();
+  burst(r.left+r.width/2, r.top+r.height/2, 70);
+  setTimeout(()=>burst(innerWidth*.28, innerHeight*.8, 28, true),  350);
+  setTimeout(()=>burst(innerWidth*.72, innerHeight*.8, 28, true), 600);
+  $('#loveEyebrow').textContent = fromNo
+    ? 'حتى زرُّ «لا» أحبَّك… يا لإجماعِ الكون'
+    : 'أجابت فراشتي… فانتثر الربيعُ في صدري';
+  $('#loveTitle').textContent = fromNo ? 'نعم… بلا مفرّ' : 'نعم… وأنا أحبُّكِ أكثر';
+  askView.classList.remove('on');
+  loveView.classList.add('on');
+  measureCard();
+  revealLines();
+}
+yesBtn.addEventListener('click', ()=>celebrate(false));
+
+/* أزرار ما بعد الرسالة */
+ $('#moreBtn').addEventListener('click', ()=>{
+  for(let k=0;k<3;k++)
+    setTimeout(()=>burst(rnd(innerWidth*.15, innerWidth*.85), innerHeight+30, 26, true), k*260);
+});
+ $('#replayBtn').addEventListener('click', revealLines);
+ $('#resetBtn').addEventListener('click', ()=>{
+  S.state='ask'; S.attempts=0; noState=null;
+  loveView.classList.remove('on'); askView.classList.add('on');
+  actionsEl.classList.remove('on');
+  yesBtn.style.setProperty('--gs', 1);
+  noBtn.classList.remove('winged','surrender','became-yes','btn-look-yes');
+  noTxt.textContent='لا';
+  noBtn.style.cssText='transition:none';       // منع قفزة متحركة عند العودة
+  noFixed=false; curX=curY=null;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ noBtn.style.cssText=''; }));
+  setFleeMsg(''); triesEl.textContent='';
+  fleeMsgEl.classList.remove('pop');
+  measureCard();
+});
+
+/* ================= فتح الهدية ================= */
+ $('#openBtn').addEventListener('click', ()=>{
+  cover.classList.add('gone');
+  setTimeout(()=> cover.style.display='none', 950);
+  stage.classList.add('on');
+  S.state='ask';
+  burst(innerWidth/2, innerHeight*.45, 26);
+  setTimeout(measureCard, 60);
+});
+
+/* ================= المؤشر واللمس ================= */
+addEventListener('pointermove', e=>{
+  S.mx=e.clientX; S.my=e.clientY; S.lastP=performance.now();
+}, {passive:true});
+addEventListener('pointerdown', e=>{
+  S.pointerOn=true;
+  if(e.target.closest('button')) return;      // الأزرار لها شؤونها
+  spawnFlyer(e.clientX, e.clientY, true);     // كل لمسةٍ تُولِّد فراشة
+});
+addEventListener('scroll', ()=>{ measureCard(); }, {passive:true});
+addEventListener('resize', ()=>{ measureCard(); });
+
+/* ================= الحديقة السفلية (تُبنى عشوائيًا) ================= */
+function buildGarden(){
+  const svg = document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox','0 0 1200 200');
+  svg.setAttribute('preserveAspectRatio','xMidYMax slice');
+  const H=200, count=16;
+  const petals=['#A93446','#C08A3E','#7E2B3C'];
+  for(let i=0;i<count;i++){
+    const bx = (i+0.5)/count*1200 + rnd(-22,22);
+    const h  = rnd(60,180);
+    const tipX = bx + rnd(-24,24), tipY = H-h;
+    const g = document.createElementNS(NS,'g');
+    g.setAttribute('class','stem');
+    g.style.setProperty('--swd', rnd(4,7).toFixed(1)+'s');
+    g.style.setProperty('animation-delay', '-'+rnd(0,5).toFixed(1)+'s');
+
+    const stem = document.createElementNS(NS,'path');
+    stem.setAttribute('d',
+      `M${bx.toFixed(1)},${H} C${(bx+rnd(-8,8)).toFixed(1)},${(H-h*.4).toFixed(1)} `+
+      `${(tipX+rnd(-14,14)).toFixed(1)},${(H-h*.72).toFixed(1)} ${tipX.toFixed(1)},${tipY.toFixed(1)}`);
+    stem.setAttribute('fill','none');
+    stem.setAttribute('stroke','#7C7F55');
+    stem.setAttribute('stroke-width', rnd(1.6,2.6).toFixed(1));
+    stem.setAttribute('stroke-linecap','round');
+    g.appendChild(stem);
+
+    /* ورقة أو ورقتان */
+    const leaves = Math.random()<.75 ? 1 : 2;
+    for(let L=0;L<leaves;L++){
+      const lx = bx+rnd(-5,5), ly = H-h*rnd(.35,.55), s = Math.random()<.5?1:-1;
+      const leaf = document.createElementNS(NS,'path');
+      leaf.setAttribute('d',
+        `M${lx.toFixed(1)},${ly.toFixed(1)} C${(lx+s*16).toFixed(1)},${(ly-10).toFixed(1)} `+
+        `${(lx+s*20).toFixed(1)},${(ly-26).toFixed(1)} ${(lx+s*2).toFixed(1)},${(ly-14).toFixed(1)} Z`);
+      leaf.setAttribute('fill','#7C7F55');
+      leaf.setAttribute('opacity','.85');
+      g.appendChild(leaf);
+    }
+    /* رأس الزهرة */
+    const pc = petals[Math.floor(Math.random()*3)];
+    const head = document.createElementNS(NS,'g');
+    const kind = Math.random();
+    if(kind < .55){                                      // أقحوانة
+      for(let p=0;p<5;p++){
+        const a = p/5*Math.PI*2;
+        const c = document.createElementNS(NS,'circle');
+        c.setAttribute('cx',(tipX+Math.cos(a)*6).toFixed(1));
+        c.setAttribute('cy',(tipY+Math.sin(a)*6).toFixed(1));
+        c.setAttribute('r','4.4'); c.setAttribute('fill',pc); c.setAttribute('opacity','.92');
+        head.appendChild(c);
+      }
+      const mid=document.createElementNS(NS,'circle');
+      mid.setAttribute('cx',tipX); mid.setAttribute('cy',tipY);
+      mid.setAttribute('r','3'); mid.setAttribute('fill','#B8873A');
+      head.appendChild(mid);
+    }else if(kind < .85){                                // خشخاشة
+      const c=document.createElementNS(NS,'circle');
+      c.setAttribute('cx',tipX); c.setAttribute('cy',tipY);
+      c.setAttribute('r','7'); c.setAttribute('fill',pc); c.setAttribute('opacity','.95');
+      head.appendChild(c);
+      const m=document.createElementNS(NS,'circle');
+      m.setAttribute('cx',tipX); m.setAttribute('cy',tipY);
+      m.setAttribute('r','2.6'); m.setAttribute('fill','#B8873A');
+      head.appendChild(m);
+    }else{                                               // برعم
+      const e=document.createElementNS(NS,'ellipse');
+      e.setAttribute('cx',tipX); e.setAttribute('cy',tipY-3);
+      e.setAttribute('rx','4'); e.setAttribute('ry','7');
+      e.setAttribute('fill',pc);
+      head.appendChild(e);
+    }
+    g.appendChild(head);
+    svg.appendChild(g);
+  }
+  $('#garden').appendChild(svg);
+}
+
+/* ================= الحلقة الرئيسية ================= */
+let last = performance.now(), frame = 0;
+function loop(now){
+  const dt = Math.min(48, now-last); last = now;
+  const dn = dt/16.666;
+  frame++;
+  if(frame % 60 === 0) measureCard();
+  if(!REDUCED){
+    updateFlyers(dn);
+    updateHero(dn, now);
+  }
+  updateParticles(dn);       // تفاعلات جوهرية تبقى حتى مع تقليل الحركة
+  updateNoFlight(now);
+  requestAnimationFrame(loop);
+}
+
+/* ================= إقلاع ================= */
+buildGarden();
+initSky();
+measureCard();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
