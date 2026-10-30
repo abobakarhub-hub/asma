@@ -1,800 +1,1180 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>إلى أسماء… فراشتي</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-/* ===================== الأصول ===================== */
-:root{
-  --paper:#F7F1E3; --paper-2:#FCF8EE;
-  --ink:#39281E;   --ink-soft:#7A6455;
-  --crimson:#A93446; --crimson-deep:#8C2739;
-  --gold:#B8873A;  --gold-soft:#D9A85C;
-  --leaf:#7C7F55;  --berry:#7E2B3C;
-  --f-head:'Aref Ruqaa', serif;
-  --f-body:'Amiri', serif;
-}
-*{box-sizing:border-box; margin:0; padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--paper); color:var(--ink);
-  font-family:var(--f-body); overflow-x:hidden; min-height:100vh;
-}
-::selection{background:var(--crimson); color:var(--paper-2)}
-button{font:inherit; color:inherit}
-button:focus-visible{outline:2px dashed var(--crimson); outline-offset:4px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة حضور حفل زفاف | حبيبة بن نايل ونايل</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Lateef:wght@200;300;400;500;600;700;800&family=Marhey:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-light: #E8D9A6;
+            --gold: #C9A961;
+            --gold-deep: #A8862E;
+            --gold-shine: #F4E5B1;
+            --cream: #FBF6EC;
+            --cream-deep: #F3E9D2;
+            --ink: #2C2418;
+            --ink-soft: #4A3D28;
+            --burgundy: #5C1A1B;
+            --rose: #C97B7B;
+        }
 
-/* حبيبات ورق مطبوع — ملمس فقط، لا زخرفة */
-#grain{
-  position:fixed; inset:0; z-index:70; pointer-events:none; opacity:.05;
-  mix-blend-mode:multiply;
-  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter><rect width="240" height="240" filter="url(%23n)" opacity="0.6"/></svg>');
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* ===================== الإطار الكبير (بطاقة) ===================== */
-.frame{position:fixed; inset:12px; z-index:60; pointer-events:none}
-.frame::before{content:""; position:absolute; inset:0; border:1px solid rgba(57,40,30,.5)}
-.frame::after {content:""; position:absolute; inset:6px; border:1px solid rgba(184,135,58,.55)}
-.frame .corner{position:absolute; width:44px; height:44px}
-.frame .corner svg{width:100%; height:100%; overflow:visible}
-.frame .corner path{stroke:var(--gold); stroke-width:1.3; fill:none}
-.frame .corner .dotA{fill:var(--crimson)} .frame .corner .dotB{fill:var(--gold)}
-.c-tl{top:9px; left:9px}
-.c-tr{top:9px; right:9px; transform:rotate(90deg)}
-.c-br{bottom:9px; right:9px; transform:rotate(180deg)}
-.c-bl{bottom:9px; left:9px; transform:rotate(270deg)}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* ===================== الفراشات (مكوّن عام) ===================== */
-.bfly{position:fixed; left:0; top:0; pointer-events:none; will-change:transform; z-index:3}
-.bfly svg{width:100%; height:100%; overflow:visible; display:block}
-.bfly .wings{
-  transform-box:view-box; transform-origin:50% 50%;
-  animation:flut var(--fd,.22s) infinite alternate ease-in-out;
-}
-@keyframes flut{from{transform:scaleX(1)} to{transform:scaleX(.28)}}
-.bfly .body{fill:var(--ink)}
-.bfly .body path{fill:none; stroke:var(--ink); stroke-width:1.1; stroke-linecap:round}
-.bfly .wu,.bfly .wd{stroke:rgba(57,40,30,.28); stroke-width:1}
-.bfly .vein{fill:none; stroke-width:.9; opacity:.6}
+        body {
+            font-family: 'Lateef', 'Amiri', serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
 
-.t-crimson .wu{fill:#A93446} .t-crimson .wd{fill:#8C2739}
-.t-crimson .sp{fill:#F8F3E7} .t-crimson .vein{stroke:#F8F3E7}
-.t-gold .wu{fill:#C08A3E} .t-gold .wd{fill:#9E6E2B}
-.t-gold .sp{fill:#F8F3E7} .t-gold .vein{stroke:#F8F3E7}
-.t-berry .wu{fill:#7E2B3C} .t-berry .wd{fill:#63212F}
-.t-berry .sp{fill:#D9A85C} .t-berry .vein{stroke:#D9A85C}
-.t-ink .wu,.t-ink .wd{fill:#F8F3E7; stroke:#3A2A1F; stroke-width:1.7}
-.t-ink .sp{fill:#A93446} .t-ink .vein{stroke:#3A2A1F}
-.t-hero .wu{fill:#A93446} .t-hero .wd{fill:#8C2739}
-.t-hero .sp{fill:#D9A85C} .t-hero .vein{stroke:#F8F3E7}
+        /* ============ LOADING SCREEN ============ */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        .loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-ornament {
+            width: 80px;
+            height: 80px;
+            animation: spin 4s linear infinite;
+        }
+        .loader-text {
+            margin-top: 20px;
+            font-family: 'Aref Ruqaa', serif;
+            color: var(--gold-deep);
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
 
-/* فراشات ثابتة (نقوش مطبوعة) */
-.bfly-static{position:relative; display:inline-block; width:38px; height:38px}
-.bfly-static .wings{animation:none}
-.mini-bfly{position:relative; display:inline-block; width:17px; height:17px; vertical-align:-3px; margin-inline-end:6px}
-.mini-bfly .wings{animation:none}
+        /* ============ NAVIGATION ============ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(251, 246, 236, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(168, 134, 46, 0.12);
+            padding: 12px 40px;
+        }
+        .nav-brand {
+            font-family: 'Aref Ruqaa', serif;
+            color: var(--gold-deep);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--ink-soft);
+            text-decoration: none;
+            font-family: 'Amiri', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--gold-deep);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
 
-/* ===================== الحديقة السفلية ===================== */
-#garden{position:fixed; left:0; right:0; bottom:0; height:clamp(90px,16vh,150px); z-index:2; pointer-events:none}
-#garden svg{width:100%; height:100%; display:block}
-#garden .stem{transform-box:fill-box; transform-origin:50% 100%;
-  animation:sway var(--swd,5s) ease-in-out infinite alternate}
-@keyframes sway{from{transform:rotate(-1.6deg)} to{transform:rotate(1.6deg)}}
+        /* ============ HERO SECTION ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background:
+                radial-gradient(ellipse at top, rgba(244, 229, 177, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(201, 169, 97, 0.15) 0%, transparent 60%),
+                var(--cream);
+            overflow: hidden;
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
 
-/* ===================== الأزرار ===================== */
-.btn{
-  font-family:var(--f-head); font-size:1.3rem; line-height:1.6;
-  padding:.42em 1.6em; border-radius:999px; cursor:pointer;
-  user-select:none; -webkit-user-select:none; position:relative; background:none;
-}
-.btn-look-yes{
-  background:var(--crimson); color:var(--paper-2);
-  border:1px solid var(--crimson-deep);
-  box-shadow:0 14px 28px -14px rgba(140,39,57,.55);
-}
-.btn-look-yes::after{
-  content:""; position:absolute; inset:4px; border-radius:inherit;
-  border:1px solid rgba(252,248,238,.5); pointer-events:none;
-}
-.btn-look-yes:hover{box-shadow:0 20px 34px -14px rgba(140,39,57,.6)}
-.btn-ghost{
-  background:transparent; color:var(--ink-soft);
-  border:1px solid rgba(122,100,85,.55); font-size:1.05rem;
-}
-.btn-ghost:hover{color:var(--ink); border-color:var(--ink-soft)}
+        /* Decorative corner ornaments */
+        .corner-ornament {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .corner-ornament.top-right { top: 20px; right: 20px; }
+        .corner-ornament.top-left { top: 20px; left: 20px; transform: scaleX(-1); }
+        .corner-ornament.bottom-right { bottom: 20px; right: 20px; transform: scaleY(-1); }
+        .corner-ornament.bottom-left { bottom: 20px; left: 20px; transform: scale(-1, -1); }
 
-/* زرُّ نعم — ينمو مع كل محاولة هروب */
-#yesBtn{
-  --gs:1;
-  transform:scale(var(--gs));
-  transition:transform .5s cubic-bezier(.2,1.3,.4,1), box-shadow .3s;
-}
-#yesBtn:hover{transform:scale(var(--gs)) translateY(-3px)}
-#yesBtn:active{transform:scale(var(--gs)) translateY(0)}
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
 
-/* زرُّ لا — الهارب (بلا transition على transform حتى تُصبح حركة الطيران فورية) */
-#noBtn{background:transparent; color:var(--ink); border:1px solid var(--ink-soft); z-index:1}
-#noBtn.became-yes{cursor:pointer}
-.nb-txt{display:inline-block; min-width:1.2em; transition:opacity .3s}
-#noBtn.surrender{animation:shake .6s ease}
-@keyframes shake{
-  0%,100%{margin-top:0} 15%{margin-top:-7px} 30%{margin-top:6px}
-  45%{margin-top:-5px} 60%{margin-top:4px} 80%{margin-top:-2px}
-}
-/* جناحا زرّ لا */
-.nb-wing{
-  position:absolute; top:50%; width:30px; height:30px;
-  opacity:0; transform:translateY(-50%) scale(0);
-  transition:transform .45s cubic-bezier(.2,1.4,.4,1), opacity .35s;
-  z-index:-1;
-}
-.nb-wing svg{width:100%; height:100%; overflow:visible; display:block}
-.nb-wing .wu{fill:var(--crimson)} .nb-wing .wd{fill:var(--crimson-deep)}
-.nb-wing .sp{fill:var(--paper-2)} .nb-wing .vein{stroke:rgba(252,248,238,.55)}
-#noBtn.winged .nb-wing{
-  opacity:1; transform:translateY(-50%) scale(1);
-  animation:wingflap .3s infinite alternate ease-in-out;
-}
-.nw-l{right:calc(100% - 12px); transform-origin:100% 50%}
-.nw-r{left:calc(100% - 12px);  transform-origin:0 50%}
-@keyframes wingflap{from{transform:translateY(-50%) scaleX(1)} to{transform:translateY(-50%) scaleX(.35)}}
-#noBtn.surrender .nb-wing{animation:none; transform:translateY(24px) rotate(55deg) scale(.55); opacity:0}
+        .bismillah {
+            font-family: 'Aref Ruqaa', serif;
+            color: var(--gold-deep);
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
 
-/* ===================== الغلاف ===================== */
-#cover{
-  position:fixed; inset:0; z-index:30;
-  display:grid; place-content:center; text-align:center; gap:clamp(.9rem,2.6vh,1.5rem);
-  padding:8vh 8vw; transition:opacity .9s ease, transform .9s ease;
-}
-#cover.gone{opacity:0; transform:translateY(-6vh); pointer-events:none}
-.cov-eyebrow{
-  font-weight:700; color:var(--gold); font-size:clamp(.95rem,2.6vw,1.15rem);
-  animation:rise 1s .15s both;
-}
-.cov-name{
-  font-family:var(--f-head); font-weight:400; color:var(--ink);
-  font-size:clamp(4.6rem,17vw,9.5rem); line-height:1.55;
-  animation:riseName 1.3s .4s both;
-}
-.flourish{width:min(64vw,300px); margin:0 auto; display:block; overflow:visible}
-.flourish .fp{stroke:var(--gold); stroke-width:1.4; fill:none; stroke-linecap:round}
-.flourish .f2{opacity:.5}
-.flourish .fp{stroke-dasharray:420; stroke-dashoffset:420; animation:draw 1.6s .9s forwards ease}
-.flourish .fdot{fill:var(--crimson)}
-@keyframes draw{to{stroke-dashoffset:0}}
-.cov-text{
-  color:var(--ink-soft); font-size:clamp(1.02rem,2.8vw,1.2rem);
-  line-height:2.2; max-width:36ch; margin-inline:auto;
-  animation:rise 1s 1.15s both;
-}
-#openBtn{animation:rise 1s 1.45s both; justify-self:center}
-#openBtn:hover{transform:translateY(-3px)}
-.cov-tip{
-  color:var(--ink-soft); opacity:.8; font-style:italic; font-size:.92rem;
-  animation:rise 1s 1.8s both;
-}
-@keyframes rise{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
-@keyframes riseName{from{opacity:0; transform:scale(.9); filter:blur(6px)} to{opacity:1; transform:none; filter:none}}
+        .hero-prelude {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: var(--ink-soft);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.6s forwards;
+        }
 
-/* ===================== المسرح والبطاقة ===================== */
-#stage{
-  min-height:100svh; display:grid; place-items:center;
-  padding:5vh 4vw 14vh; position:relative; z-index:10;
-  opacity:0; visibility:hidden; transform:translateY(22px);
-  transition:opacity .8s .25s ease, transform .8s .25s ease, visibility 0s .9s;
-}
-#stage.on{opacity:1; visibility:visible; transform:none; transition:opacity .8s .25s ease, transform .8s .25s ease}
-.card{
-  position:relative; width:min(92vw,600px); text-align:center;
-  background:var(--paper-2);
-  border:1px solid rgba(57,40,30,.35);
-  box-shadow:0 30px 60px -30px rgba(57,40,30,.3);
-  padding:clamp(1.8rem,6vw,3.2rem) clamp(1.3rem,5vw,3rem);
-}
-.card::before{content:""; position:absolute; inset:8px; border:1px solid rgba(184,135,58,.5); pointer-events:none}
-.crest{display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:.6rem}
-.crest .cr-line{width:clamp(50px,14vw,86px); height:12px; overflow:visible}
-.crest .cr-line path{stroke:var(--gold); stroke-width:1.2; fill:none; stroke-linecap:round; opacity:.85}
-.views{display:grid}
-.view{
-  grid-area:1/1; opacity:0; visibility:hidden; transform:translateY(16px);
-  transition:opacity .65s ease, transform .65s ease, visibility 0s .65s;
-}
-.view.on{opacity:1; visibility:visible; transform:none; transition:opacity .65s ease, transform .65s ease}
-.eyebrow{color:var(--gold); font-weight:700; font-size:clamp(.92rem,2.6vw,1.05rem); margin-bottom:.2rem}
-.ask-title{
-  font-family:var(--f-head); font-weight:700; color:var(--ink);
-  font-size:clamp(2.6rem,8vw,4.4rem); line-height:1.9; margin-bottom:.4rem;
-}
-.love-title{
-  font-family:var(--f-head); font-weight:700; color:var(--crimson-deep);
-  font-size:clamp(1.9rem,6vw,3rem); line-height:1.9; margin-bottom:1rem;
-}
-.hint{
-  color:var(--ink-soft); font-size:.95rem; line-height:2;
-  display:grid; gap:.15rem; margin-bottom:1.4rem;
-}
-.hint .hint2{opacity:.75; font-style:italic; font-size:.88rem}
-.btns{
-  display:flex; justify-content:space-evenly; align-items:center;
-  min-width:min(78vw,290px); margin-inline:auto; gap:10px;
-  min-height:74px;
-}
-.flee-msg{
-  min-height:2.4em; margin-top:1.1rem; color:var(--crimson-deep);
-  font-style:italic; font-size:1.02rem; line-height:1.9;
-}
-.flee-msg.pop{animation:pop .55s ease}
-@keyframes pop{from{opacity:0; transform:translateY(8px) scale(.96)} to{opacity:1; transform:none}}
-.tries{min-height:1.8em; color:var(--ink-soft); font-size:.9rem; opacity:.9}
+        .names-container {
+            margin: 40px 0;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.9s forwards;
+        }
 
-/* ===================== رسالة الحب ===================== */
-.line{
-  display:block; opacity:0; transform:translateY(16px); filter:blur(3px);
-  transition:opacity .9s ease, transform .9s ease, filter .9s ease;
-  font-size:clamp(1.02rem,2.7vw,1.28rem); line-height:2.35; margin-block:.3em;
-}
-.line.show{opacity:1; transform:none; filter:none}
-.actions{
-  display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; margin-top:1.6rem;
-  opacity:0; transform:translateY(12px); transition:opacity .8s ease, transform .8s ease;
-}
-.actions.on{opacity:1; transform:none}
-#loveView .flourish{width:min(46vw,220px); margin-top:1rem}
-#loveView .flourish .fp{stroke-dasharray:none; stroke-dashoffset:0; animation:none}
+        .name {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: var(--ink);
+            display: block;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--ink) 0%, var(--gold-deep) 50%, var(--ink) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 20px rgba(168, 134, 46, 0.15);
+        }
 
-/* ===================== الفراشة البطلة والوابل ===================== */
-#heroBfly{position:fixed; left:0; top:0; z-index:35; pointer-events:none; will-change:transform}
-#burstLayer{position:fixed; inset:0; z-index:45; pointer-events:none; overflow:hidden}
+        .ampersand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 16px;
+        }
+        .ampersand-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .ampersand-symbol {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 2.5rem;
+            color: var(--gold-deep);
+        }
 
-@media (max-width:560px){
-  .btn{font-size:1.12rem}
-  .btns{min-width:88vw}
-  .nb-wing{width:26px; height:26px}
-}
-@media (prefers-reduced-motion:reduce){
-  .bfly .wings, #garden .stem, .flourish .fp{animation:none !important}
-  #noBtn.winged .nb-wing{animation:none}
-}
-</style>
+        .invitation-tag {
+            display: inline-block;
+            padding: 8px 24px;
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            font-family: 'Amiri', serif;
+            font-size: 1rem;
+            color: var(--gold-deep);
+            margin-bottom: 30px;
+            letter-spacing: 6px;
+            background: rgba(244, 229, 177, 0.2);
+            opacity: 0;
+            animation: fadeUp 1s ease 1.2s forwards;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold-deep);
+            opacity: 0;
+            animation: fadeUp 1s ease 1.5s forwards;
+        }
+        .scroll-hint span {
+            font-family: 'Amiri', serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+        }
+        .scroll-arrow {
+            width: 24px;
+            height: 40px;
+            border: 1.5px solid var(--gold);
+            border-radius: 14px;
+            position: relative;
+        }
+        .scroll-arrow::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--gold-deep);
+            border-radius: 2px;
+            animation: scrollDot 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollDot {
+            0%, 100% { top: 8px; opacity: 1; }
+            50% { top: 22px; opacity: 0.3; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating petals */
+        .petal {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float 20s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ============ SECTION COMMON ============ */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-title .ornament {
+            display: block;
+            margin: 0 auto 20px;
+            color: var(--gold);
+        }
+        .section-title h2 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--ink);
+            font-weight: 700;
+        }
+        .section-title .subtitle {
+            font-family: 'Amiri', serif;
+            color: var(--gold-deep);
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            margin-top: 8px;
+        }
+
+        /* ============ QURAN VERSE SECTION ============ */
+        .verse-section {
+            background: linear-gradient(135deg, #F3E9D2 0%, #FBF6EC 100%);
+            text-align: center;
+        }
+        .verse-frame {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            border-radius: 4px;
+            position: relative;
+            backdrop-filter: blur(6px);
+        }
+        .verse-frame::before,
+        .verse-frame::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--gold);
+        }
+        .verse-frame::before {
+            top: -2px; right: -2px;
+            border-left: none; border-bottom: none;
+        }
+        .verse-frame::after {
+            bottom: -2px; left: -2px;
+            border-right: none; border-top: none;
+        }
+        .verse-text {
+            font-family: 'Amiri', serif;
+            font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+            color: var(--ink);
+            line-height: 2.2;
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+        .verse-source {
+            font-family: 'Lateef', serif;
+            color: var(--gold-deep);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        /* ============ COUNTDOWN SECTION ============ */
+        .countdown-section {
+            background: var(--cream);
+            text-align: center;
+        }
+        .countdown-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .count-box {
+            background: linear-gradient(145deg, #FFFFFF 0%, var(--cream-deep) 100%);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            padding: 30px 10px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(168, 134, 46, 0.08);
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .count-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(168, 134, 46, 0.18);
+        }
+        .count-box::before {
+            content: '';
+            position: absolute;
+            top: 8px; right: 8px; left: 8px; bottom: 8px;
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        .count-num {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            color: var(--gold-deep);
+            font-weight: 700;
+            line-height: 1;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .count-label {
+            font-family: 'Amiri', serif;
+            font-size: 1rem;
+            color: var(--ink-soft);
+            letter-spacing: 2px;
+        }
+        @media (max-width: 600px) {
+            .countdown-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ============ EVENT DETAILS ============ */
+        .details-section {
+            background: linear-gradient(180deg, var(--cream) 0%, #F3E9D2 100%);
+        }
+        .details-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .detail-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(201, 169, 97, 0.25);
+            padding: 50px 30px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(6px);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .detail-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(168, 134, 46, 0.2);
+        }
+        .detail-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            color: var(--gold-deep);
+        }
+        .detail-label {
+            font-family: 'Amiri', serif;
+            color: var(--gold-deep);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+        .detail-value {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .detail-sub {
+            font-family: 'Lateef', serif;
+            color: var(--ink-soft);
+            font-size: 1.15rem;
+        }
+        @media (max-width: 900px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        /* ============ FAMILIES SECTION ============ */
+        .families-section {
+            background: var(--cream);
+            text-align: center;
+        }
+        .families-frame {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(244, 229, 177, 0.15) 0%, rgba(251, 246, 236, 0.5) 100%);
+            border-top: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            position: relative;
+        }
+        .families-frame::before,
+        .families-frame::after {
+            content: '✦';
+            position: absolute;
+            color: var(--gold);
+            font-size: 1.5rem;
+            background: var(--cream);
+            padding: 0 12px;
+        }
+        .families-frame::before { top: -12px; left: 50%; transform: translateX(-50%); }
+        .families-frame::after { bottom: -12px; left: 50%; transform: translateX(-50%); }
+
+        .families-title {
+            font-family: 'Amiri', serif;
+            color: var(--gold-deep);
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+        .families-text {
+            font-family: 'Lateef', serif;
+            font-size: 1.6rem;
+            color: var(--ink);
+            line-height: 2.2;
+            margin-bottom: 30px;
+        }
+        .families-text .highlight {
+            color: var(--gold-deep);
+            font-weight: 600;
+        }
+        .families-names {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .family-block {
+            text-align: center;
+        }
+        .family-block .role {
+            font-family: 'Amiri', serif;
+            color: var(--ink-soft);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+        .family-block .fname {
+            font-family: 'Aref Ruqaa', serif;
+            color: var(--ink);
+            font-size: 1.4rem;
+        }
+        .family-divider {
+            align-self: center;
+            width: 1px;
+            height: 50px;
+            background: var(--gold);
+            opacity: 0.5;
+        }
+        @media (max-width: 600px) {
+            .families-names { gap: 30px; }
+            .family-divider { display: none; }
+        }
+
+        /* ============ PROGRAM SECTION ============ */
+        .program-section {
+            background: linear-gradient(180deg, #F3E9D2 0%, var(--cream) 100%);
+        }
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            right: 30px;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, var(--gold), transparent);
+        }
+        .timeline-item {
+            position: relative;
+            padding-right: 80px;
+            margin-bottom: 40px;
+            text-align: right;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            right: 22px;
+            top: 8px;
+            width: 18px;
+            height: 18px;
+            background: var(--cream);
+            border: 2px solid var(--gold-deep);
+            border-radius: 50%;
+        }
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: var(--gold-deep);
+            border-radius: 50%;
+        }
+        .timeline-time {
+            font-family: 'Aref Ruqaa', serif;
+            color: var(--gold-deep);
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .timeline-title {
+            font-family: 'Amiri', serif;
+            color: var(--ink);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .timeline-desc {
+            font-family: 'Lateef', serif;
+            color: var(--ink-soft);
+            font-size: 1.1rem;
+        }
+
+        /* ============ QUOTE SECTION ============ */
+        .quote-section {
+            background: linear-gradient(135deg, #2C2418 0%, #4A3D28 100%);
+            text-align: center;
+            color: var(--cream);
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(201, 169, 97, 0.1) 0%, transparent 40%);
+        }
+        .quote-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .quote-mark {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 5rem;
+            color: var(--gold);
+            line-height: 0.5;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+        .quote-text {
+            font-family: 'Amiri', serif;
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+            line-height: 2.2;
+            color: var(--gold-shine);
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .quote-author {
+            font-family: 'Lateef', serif;
+            color: var(--gold);
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+        }
+
+        /* ============ RSVP SECTION ============ */
+        .rsvp-section {
+            background: var(--cream);
+            text-align: center;
+        }
+        .rsvp-card {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--cream-deep) 100%);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(168, 134, 46, 0.15);
+            position: relative;
+        }
+        .rsvp-card::before {
+            content: '';
+            position: absolute;
+            top: 12px; right: 12px; left: 12px; bottom: 12px;
+            border: 1px solid rgba(201, 169, 97, 0.4);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        .rsvp-title {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 2rem;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
+        .rsvp-text {
+            font-family: 'Lateef', serif;
+            font-size: 1.3rem;
+            color: var(--ink-soft);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        .rsvp-btn {
+            display: inline-block;
+            padding: 14px 50px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%);
+            color: var(--cream);
+            text-decoration: none;
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(168, 134, 46, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .rsvp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(168, 134, 46, 0.4);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: #2C2418;
+            color: var(--cream);
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+        .footer-ornament {
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .footer-thanks {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: var(--gold-shine);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        .footer-couple {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+        .footer-meta {
+            font-family: 'Lateef', serif;
+            color: var(--cream-deep);
+            opacity: 0.6;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        /* ============ SCROLL REVEAL ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============ DECORATIVE DIVIDER ============ */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 30px 0;
+        }
+        .divider-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+        }
+        .divider-symbol {
+            color: var(--gold-deep);
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
 
-<div id="grain"></div>
-<div id="garden"></div>
-<div id="burstLayer"></div>
-
-<!-- إطار البطاقة الكبرى وزواياها -->
-<div class="frame" aria-hidden="true">
-  <span class="corner c-tl"></span><span class="corner c-tr"></span>
-  <span class="corner c-br"></span><span class="corner c-bl"></span>
-</div>
-
-<!-- الغلاف -->
-<section id="cover">
-  <p class="cov-eyebrow">إلى فراشتي الصغيرة</p>
-  <h1 class="cov-name">أسماء</h1>
-  <svg class="flourish" viewBox="0 0 320 26" aria-hidden="true">
-    <path class="fp"    d="M8,14 C70,2 110,26 160,13 C210,0 250,26 312,12"/>
-    <path class="fp f2" d="M40,18 C90,10 130,22 160,16 C190,10 230,22 280,15"/>
-    <circle class="fdot" cx="160" cy="13.5" r="2.6"/>
-  </svg>
-  <p class="cov-text">في حديقةِ قلبي فراشةٌ واحدةٌ لا تُشبه باقي الفراشات…<br>وهذه الصفحةُ هديّةٌ لها وحدَها.</p>
-  <button id="openBtn" class="btn btn-look-yes">افتحي هديّتكِ</button>
-  <p class="cov-tip">حرّكي يدَكِ على الشاشة… الفراشاتُ ستتبعُكِ.</p>
-</section>
-
-<!-- المسرح -->
-<main id="stage">
-  <div class="card" id="card">
-    <div class="crest" aria-hidden="true">
-      <svg class="cr-line" viewBox="0 0 90 12"><path d="M4,6 C30,1 60,11 86,5"/></svg>
-      <span class="bfly-static" data-bfly="ink"></span>
-      <svg class="cr-line" viewBox="0 0 90 12"><path d="M4,5 C30,11 60,1 86,6"/></svg>
-    </div>
-
-    <div class="views">
-      <!-- منظر السؤال -->
-      <section class="view on" id="askView">
-        <p class="eyebrow">أسماء…</p>
-        <h1 class="ask-title">هل تُحِبّينَني؟</h1>
-        <p class="hint">
-          <span>تحذيرٌ ودود: زرُّ «لا» لا يقبلُ أن يُضغَطَ عليه… جرّبي وسترين.</span>
-          <span class="hint2">وانقري في أيّ مكانٍ فارغ؛ فكلُّ نقرةٍ تُولِّد فراشةً جديدة.</span>
-        </p>
-        <div class="btns">
-          <button id="yesBtn" class="btn btn-look-yes">نعم</button>
-          <button id="noBtn" class="btn" aria-label="لا (جرّبي إن استطعتِ)">
-            <span class="nb-wing nw-l" aria-hidden="true"></span>
-            <span class="nb-wing nw-r" aria-hidden="true"></span>
-            <span class="nb-txt">لا</span>
-          </button>
-        </div>
-        <p class="flee-msg" id="fleeMsg" aria-live="polite"></p>
-        <p class="tries" id="tries"></p>
-      </section>
-
-      <!-- منظر الرسالة -->
-      <section class="view" id="loveView">
-        <p class="eyebrow" id="loveEyebrow"></p>
-        <h2 class="love-title" id="loveTitle"></h2>
-        <p class="line">أسماء… يا فراشتي الجميلة،</p>
-        <p class="line">أنتِ الفراشةُ التي حلّقت في سماءِ حياتي، فحوّلتِ كلَّ ربيعٍ عابرٍ إلى وطنٍ دائم.</p>
-        <p class="line">منذ عرفتُكِ صار للونِ معنًى، وصار لصمتِي شجنٌ حلو، وصار قلبي حديقةً لا تطمئنُّ إلا إذا حطّتِ عليها.</p>
-        <p class="line">عيناكِ جناحانِ لا ينامان، وضحكتُكِ رشّةُ ضوءٍ تمحو عن يومي تعبَه،</p>
-        <p class="line">وحنونُكِ ذاك الهدوءُ الذي أفتّشُ عنه في كلّ زحامٍ فلا أجدُه إلا معكِ.</p>
-        <p class="line">أحبُّكِ بمقدارِ ما للفراشاتِ من ألوان، وبمقدارِ ما للربيعِ من وعودٍ صادقة.</p>
-        <p class="line">فابقَي جناحَيَّ يا أسماء… وابقَي فراشتِي التي لا تطيرُ إلا إليّ.</p>
-        <svg class="flourish" viewBox="0 0 320 26" aria-hidden="true">
-          <path class="fp"    d="M8,14 C70,2 110,26 160,13 C210,0 250,26 312,12"/>
-          <path class="fp f2" d="M40,18 C90,10 130,22 160,16 C190,10 230,22 280,15"/>
-          <circle class="fdot" cx="160" cy="13.5" r="2.6"/>
+    <!-- ============ LOADER ============ -->
+    <div class="loader" id="loader">
+        <svg class="loader-ornament" viewBox="0 0 100 100" fill="none" stroke="#A8862E" stroke-width="1">
+            <circle cx="50" cy="50" r="40" stroke-dasharray="4 4"/>
+            <circle cx="50" cy="50" r="28"/>
+            <path d="M50 10 L50 90 M10 50 L90 50" stroke-dasharray="2 4"/>
+            <circle cx="50" cy="50" r="6" fill="#A8862E"/>
         </svg>
-        <div class="actions" id="actions">
-          <button id="moreBtn"   class="btn btn-ghost"><span class="mini-bfly" data-bfly="crimson"></span>أطلقي فراشاتٍ أكثر</button>
-          <button id="replayBtn" class="btn btn-ghost">اقرئيها مرّةً أخرى</button>
-          <button id="resetBtn"  class="btn btn-ghost">من البداية</button>
-        </div>
-      </section>
+        <div class="loader-text">حبيبة & نايل</div>
     </div>
-  </div>
-</main>
 
-<script>
-'use strict';
-/* ================= أدوات ================= */
-const $ = s => document.querySelector(s);
-const rnd = (a,b) => a + Math.random()*(b-a);
-const clamp = (v,a,b) => Math.min(b, Math.max(a,v));
-const AR = n => n.toLocaleString('ar-EG');            // أرقام هندية
-const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const NS = 'http://www.w3.org/2000/svg';
+    <!-- ============ NAVIGATION ============ -->
+    <nav id="nav">
+        <div class="nav-brand">حبيبة & نايل</div>
+        <ul class="nav-links">
+            <li><a href="#hero">الرئيسية</a></li>
+            <li><a href="#verse">الآية</a></li>
+            <li><a href="#countdown">العد التنازلي</a></li>
+            <li><a href="#details">التفاصيل</a></li>
+            <li><a href="#program">البرنامج</a></li>
+            <li><a href="#rsvp">تأكيد الحضور</a></li>
+        </ul>
+    </nav>
 
-/* ================= مكوّن الفراشة (SVG) ================= */
-const WING = `
-  <path class="wu"   d="M5,-8 C22,-40 56,-44 54,-18 C52,-2 32,4 6,0 Z"/>
-  <path class="wd"   d="M6,2 C24,6 36,26 26,40 C17,50 5,38 5,10 Z"/>
-  <path class="vein" d="M8,-6 C22,-16 36,-24 48,-20 M8,0 C18,6 26,18 24,32"/>
-  <circle class="sp" cx="38" cy="-26" r="4"/>
-  <circle class="sp" cx="44" cy="-16" r="2.4"/>
-  <circle class="sp" cx="17" cy="24"  r="2.6"/>`;
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+        <!-- Corner ornaments -->
+        <svg class="corner-ornament top-right" viewBox="0 0 200 200" fill="none" stroke="#C9A961" stroke-width="1">
+            <path d="M0 200 Q 0 100, 100 100 Q 100 0, 200 0"/>
+            <path d="M20 180 Q 20 120, 80 120" opacity="0.5"/>
+            <circle cx="100" cy="100" r="3" fill="#C9A961"/>
+            <path d="M90 100 L 110 100 M100 90 L 100 110" opacity="0.7"/>
+        </svg>
+        <svg class="corner-ornament top-left" viewBox="0 0 200 200" fill="none" stroke="#C9A961" stroke-width="1">
+            <path d="M0 200 Q 0 100, 100 100 Q 100 0, 200 0"/>
+            <path d="M20 180 Q 20 120, 80 120" opacity="0.5"/>
+            <circle cx="100" cy="100" r="3" fill="#C9A961"/>
+        </svg>
+        <svg class="corner-ornament bottom-right" viewBox="0 0 200 200" fill="none" stroke="#C9A961" stroke-width="1">
+            <path d="M0 200 Q 0 100, 100 100 Q 100 0, 200 0"/>
+            <path d="M20 180 Q 20 120, 80 120" opacity="0.5"/>
+            <circle cx="100" cy="100" r="3" fill="#C9A961"/>
+        </svg>
+        <svg class="corner-ornament bottom-left" viewBox="0 0 200 200" fill="none" stroke="#C9A961" stroke-width="1">
+            <path d="M0 200 Q 0 100, 100 100 Q 100 0, 200 0"/>
+            <path d="M20 180 Q 20 120, 80 120" opacity="0.5"/>
+            <circle cx="100" cy="100" r="3" fill="#C9A961"/>
+        </svg>
 
-function butterflySVG(){
-  return `<svg viewBox="-50 -50 100 100" aria-hidden="true">
-    <g class="wings">
-      <g>${WING}</g>
-      <g transform="scale(-1 1)">${WING}</g>
-    </g>
-    <g class="body">
-      <ellipse cx="0" cy="2" rx="3" ry="13"/>
-      <circle cx="0" cy="-13" r="3.4"/>
-      <path d="M-1,-15 C-4,-22 -8,-25 -11,-27 M1,-15 C4,-22 8,-25 11,-27"/>
-      <circle cx="-11" cy="-27" r="1.5"/><circle cx="11" cy="-27" r="1.5"/>
-    </g>
-  </svg>`;
-}
-/* جناح واحد (لأجنحة زرّ «لا») */
-const ONE_WING = `<svg viewBox="0 -46 62 92" aria-hidden="true">${WING}</svg>`;
+        <!-- Floating petals -->
+        <svg class="petal" style="left: 10%; animation-delay: 0s;" width="20" height="20" viewBox="0 0 20 20" fill="#E8D9A6">
+            <path d="M10 0 Q 15 10, 10 20 Q 5 10, 10 0"/>
+        </svg>
+        <svg class="petal" style="left: 30%; animation-delay: 4s;" width="16" height="16" viewBox="0 0 20 20" fill="#C9A961">
+            <path d="M10 0 Q 15 10, 10 20 Q 5 10, 10 0"/>
+        </svg>
+        <svg class="petal" style="left: 60%; animation-delay: 8s;" width="22" height="22" viewBox="0 0 20 20" fill="#E8D9A6">
+            <path d="M10 0 Q 15 10, 10 20 Q 5 10, 10 0"/>
+        </svg>
+        <svg class="petal" style="left: 80%; animation-delay: 12s;" width="18" height="18" viewBox="0 0 20 20" fill="#C97B7B" opacity="0.5">
+            <path d="M10 0 Q 15 10, 10 20 Q 5 10, 10 0"/>
+        </svg>
+        <svg class="petal" style="left: 50%; animation-delay: 16s;" width="20" height="20" viewBox="0 0 20 20" fill="#E8D9A6">
+            <path d="M10 0 Q 15 10, 10 20 Q 5 10, 10 0"/>
+        </svg>
 
-/* ملء العناصر المعلّمة بفراشات مطبوعة */
-document.querySelectorAll('[data-bfly]').forEach(el=>{
-  el.innerHTML = butterflySVG();
-  el.classList.add('t-'+el.dataset.bfly);
-});
-document.querySelectorAll('.nb-wing').forEach(el=> el.innerHTML = ONE_WING );
+        <div class="hero-content">
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div class="invitation-tag">دَعْوَةُ حُضُورِ حَفْلِ زِفَاف</div>
+            <div class="hero-prelude">يسرّنا ويشرفنا أن نشارككم فرحة قلوبنا</div>
 
-/* زوايا الإطار */
-const CORNER = `<svg viewBox="0 0 64 64">
-  <path d="M6,34 C6,17 17,6 34,6"/>
-  <path d="M6,48 C6,24 24,6 48,6" opacity=".45"/>
-  <circle class="dotA" cx="13" cy="13" r="2.6"/>
-  <circle class="dotB" cx="22" cy="22" r="1.4" opacity=".75"/></svg>`;
-document.querySelectorAll('.frame .corner').forEach(c=> c.innerHTML = CORNER);
+            <div class="names-container">
+                <span class="name">حَبِيبَة</span>
+                <div class="ampersand">
+                    <div class="ampersand-line"></div>
+                    <div class="ampersand-symbol">﴿ وَ ﴾</div>
+                    <div class="ampersand-line"></div>
+                </div>
+                <span class="name">نَايِل</span>
+            </div>
 
-/* ================= الحالة العامة ================= */
-const S = {
-  state:'cover', attempts:0, mx:innerWidth/2, my:innerHeight/2,
-  lastP:-9999, pointerOn:false
-};
-const TYPES = ['t-crimson','t-gold','t-berry','t-ink','t-crimson','t-gold'];
-const pickType = () => TYPES[Math.floor(Math.random()*TYPES.length)];
+            <div class="hero-prelude" style="animation-delay: 1.3s;">
+                بن نايل &mdash; بن نايل
+            </div>
+        </div>
 
-const cover=$('#cover'), stage=$('#stage'), card=$('#card');
-const askView=$('#askView'), loveView=$('#loveView');
-const yesBtn=$('#yesBtn'), noBtn=$('#noBtn'), noTxt=noBtn.querySelector('.nb-txt');
-const fleeMsgEl=$('#fleeMsg'), triesEl=$('#tries'), actionsEl=$('#actions');
+        <div class="scroll-hint">
+            <span>تَابِعُوا</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
 
-/* ================= سماء الفراشات ================= */
-const flyers = [];
-const MAXF = 22;
-function makeFlyerEl(type, size){
-  const el = document.createElement('div');
-  el.className = 'bfly ' + type;
-  el.style.width = el.style.height = size + 'px';
-  el.style.setProperty('--fd', rnd(.16,.3).toFixed(2)+'s');
-  el.innerHTML = butterflySVG();
-  return el;
-}
-function spawnFlyer(x, y, grow){
-  const size = rnd(16,30);
-  const el = makeFlyerEl(pickType(), grow ? size*.25 : size);
-  document.body.appendChild(el);
-  if(grow){
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      el.style.transition='width .6s ease, height .6s ease';
-      el.style.width = el.style.height = size+'px';
-    }));
-  }
-  flyers.push({el, x, y, size, a:rnd(0,Math.PI*2), sp:rnd(.5,1.4), ph:rnd(0,Math.PI*2), dir:1});
-  if(flyers.length > MAXF){                    // أقدم فراشة تودّع بلطف
-    const old = flyers.shift();
-    old.el.style.transition='opacity .8s'; old.el.style.opacity='0';
-    setTimeout(()=>old.el.remove(), 850);
-  }
-}
-function initSky(){
-  const n = innerWidth < 720 ? 8 : 13;
-  for(let i=0;i<n;i++) spawnFlyer(rnd(0,innerWidth), rnd(0,innerHeight), false);
-}
+    <!-- ============ QURAN VERSE ============ -->
+    <section class="verse-section reveal" id="verse">
+        <div class="section-title">
+            <svg class="ornament" width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#C9A961" stroke-width="1">
+                <path d="M0 10 L 20 10 M 40 10 L 60 10"/>
+                <circle cx="30" cy="10" r="4"/>
+                <path d="M30 4 L 30 16 M 24 10 L 36 10" opacity="0.6"/>
+            </svg>
+            <h2>آيَةٌ مِنَ الذِّكْرِ الْحَكِيمِ</h2>
+            <div class="subtitle">~ كِتَابُ اللَّهِ ~</div>
+        </div>
 
-/* ================= الفراشة البطلة ================= */
-const hero = { el: makeFlyerEl('t-hero', 56), x:innerWidth/2, y:120 };
-hero.el.id='heroBfly';
-document.body.appendChild(hero.el);
-let cardRect = null;
-function measureCard(){ cardRect = card.getBoundingClientRect(); }
-function updateHero(dn, now){
-  if(!cardRect) measureCard();
-  const cx = cardRect.left + cardRect.width/2;
-  const tx = cx + Math.cos(now*0.0006) * Math.min(cardRect.width*.55, 150);
-  const ty = cardRect.top  - 46 + Math.sin(now*0.0013) * 22;
-  const px = hero.x, py = hero.y;
-  hero.x += (tx-hero.x)*0.045*dn;
-  hero.y += (ty-hero.y)*0.045*dn;
-  const dir = (hero.x-px) >= 0 ? 1 : -1;
-  const tilt = clamp((hero.y-py)*1.2, -18, 18);
-  hero.el.style.transform =
-    `translate3d(${hero.x-28}px,${hero.y-28}px,0) scaleX(${dir}) rotate(${tilt}deg)`;
-}
+        <div class="verse-frame">
+            <p class="verse-text">
+                وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+            </p>
+            <p class="verse-source">﴿ سُورَةُ الرُّوم — آيَة 21 ﴾</p>
+        </div>
+    </section>
 
-/* ================= وابل الفراشات (الجسيمات) ================= */
-const particles = [];
-function burst(x, y, n=60, up=false){
-  for(let i=0;i<n;i++){
-    const size = rnd(10,22);
-    const el = makeFlyerEl(pickType(), size);
-    $('#burstLayer').appendChild(el);
-    const a = up ? rnd(-Math.PI*.82,-Math.PI*.18) : rnd(0,Math.PI*2);
-    const sp = up ? rnd(3.5,8) : rnd(1.5,6.5);
-    particles.push({
-      el, x, y, size,
-      vx:Math.cos(a)*sp, vy:Math.sin(a)*sp - (up?0:rnd(1,3)),
-      rot:rnd(-25,25), vr:rnd(-4,4), dir:Math.cos(a)>=0?1:-1,
-      life:0, max:rnd(130,220), ph:rnd(0,Math.PI*2)
-    });
-  }
-}
-function updateParticles(dn){
-  for(let i=particles.length-1;i>=0;i--){
-    const p = particles[i];
-    p.life += dn;
-    p.vy -= 0.05*dn;                    // الفراشات تحلّق نحو الأعلى
-    p.vx *= Math.pow(.985, dn);
-    p.x  += p.vx*dn + Math.sin(p.life*.15+p.ph)*.6*dn;
-    p.y  += p.vy*dn;
-    p.rot += p.vr*dn;
-    const t = p.life/p.max;
-    p.el.style.opacity = t<.6 ? 1 : String(Math.max(0, 1-(t-.6)/.4));
-    const sc = 1 - .35*t;
-    p.el.style.transform =
-      `translate3d(${p.x-p.size/2}px,${p.y-p.size/2}px,0) rotate(${p.rot}deg) scaleX(${p.dir}) scale(${sc})`;
-    if(t>=1){ p.el.remove(); particles.splice(i,1); }
-  }
-}
+    <!-- ============ COUNTDOWN ============ -->
+    <section class="countdown-section reveal" id="countdown">
+        <div class="section-title">
+            <svg class="ornament" width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#C9A961" stroke-width="1">
+                <path d="M0 10 L 20 10 M 40 10 L 60 10"/>
+                <circle cx="30" cy="10" r="4"/>
+                <path d="M30 4 L 30 16 M 24 10 L 36 10" opacity="0.6"/>
+            </svg>
+            <h2>العَدُّ التَّنَازُلِيُّ لِلْحَفْلِ</h2>
+            <div class="subtitle">~ يَبْقَى عَلَى اللُّقَاء ~</div>
+        </div>
 
-/* ================= حركة سماء الفراشات ================= */
-function updateFlyers(dn){
-  const near = S.pointerOn && (performance.now()-S.lastP < 1800);
-  for(const f of flyers){
-    f.ph += .06*dn*(.8+f.sp*.3);
-    if(near){
-      const dx=S.mx-f.x, dy=S.my-f.y, d=Math.hypot(dx,dy);
-      if(d<260 && d>24){
-        const ta=Math.atan2(dy,dx);
-        let diff=((ta-f.a+Math.PI*3)%(Math.PI*2))-Math.PI;
-        f.a += diff*.06*dn;
-      }
-    }else{
-      f.a += Math.sin(f.ph*.7)*.03*dn + rnd(-.02,.02)*dn;
-    }
-    const v = f.sp*dn*.9*(near?1.35:1);
-    f.x += Math.cos(f.a)*v;
-    f.y += Math.sin(f.a)*v*.7 + Math.sin(f.ph)*.35*dn;
-    if(f.x<-70) f.x=innerWidth+70; else if(f.x>innerWidth+70) f.x=-70;
-    if(f.y<-70) f.y=innerHeight+70; else if(f.y>innerHeight+70) f.y=-70;
-    const dir = Math.cos(f.a)>=0 ? 1 : -1;
-    const tilt = clamp(Math.sin(f.a)*26, -28, 28);
-    f.el.style.transform =
-      `translate3d(${f.x-f.size/2}px,${f.y-f.size/2}px,0) scaleX(${dir}) rotate(${tilt}deg)`;
-  }
-}
+        <div class="countdown-wrapper">
+            <div class="count-box">
+                <span class="count-num" id="days">00</span>
+                <span class="count-label">يَوْم</span>
+            </div>
+            <div class="count-box">
+                <span class="count-num" id="hours">00</span>
+                <span class="count-label">سَاعَة</span>
+            </div>
+            <div class="count-box">
+                <span class="count-num" id="minutes">00</span>
+                <span class="count-label">دَقِيقَة</span>
+            </div>
+            <div class="count-box">
+                <span class="count-num" id="seconds">00</span>
+                <span class="count-label">ثَانِيَة</span>
+            </div>
+        </div>
+    </section>
 
-/* ================= زرّ «لا» الهارب ================= */
-const FLEE_MSGS = [
-  'أوه! يبدو أنّ زرَّ «لا» خجولٌ قليلًا.',
-  'سريعٌ، أليس كذلك؟ تدريبٌ جيّدٌ لقلبكِ.',
-  'لا تحزني… حتى الأزرارُ تخاف أن تقول «لا» لحبيبها.',
-  'زرُّ «لا» صار خفيفَ الحركة… أتوقّع له جناحين بعد قليل.',
-  'ها هما الجناحان! ألم أقل لكِ إنه فراشةٌ متنكّرة؟',
-  'كلُّ هذا التطييرُ كي لا تقولي «لا»؟ نعم… أستحقّها.',
-  'جناحاه بدآ يثقلان… لكنّه ما زال يطير بعناد.'
-];
-const MAX_TRY = 8;
-let noFixed=false, noState=null, curX=null, curY=null, nw=0, nh=0;
+    <!-- ============ EVENT DETAILS ============ -->
+    <section class="details-section reveal" id="details">
+        <div class="section-title">
+            <svg class="ornament" width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#C9A961" stroke-width="1">
+                <path d="M0 10 L 20 10 M 40 10 L 60 10"/>
+                <circle cx="30" cy="10" r="4"/>
+                <path d="M30 4 L 30 16 M 24 10 L 36 10" opacity="0.6"/>
+            </svg>
+            <h2>تَفَاصِيلُ الْحَفْلِ</h2>
+            <div class="subtitle">~ مَعْلُومَاتُ الْحُضُور ~</div>
+        </div>
 
-function setFleeMsg(txt){
-  fleeMsgEl.textContent = txt;
-  fleeMsgEl.classList.remove('pop');
-  void fleeMsgEl.offsetWidth;
-  fleeMsgEl.classList.add('pop');
-}
-function fleeTarget(){
-  const yr = yesBtn.getBoundingClientRect();
-  const yc = {x:yr.left+yr.width/2, y:yr.top+yr.height/2};
-  for(let i=0;i<24;i++){
-    const x = rnd(70, innerWidth-70), y = rnd(76, innerHeight-84);
-    if(Math.hypot(x-yc.x, y-yc.y) < 180) continue;
-    if(curX!=null && Math.hypot(x-(curX+nw/2), y-(curY+nh/2)) < 140) continue;
-    return {x,y};
-  }
-  return {x:rnd(80, innerWidth-80), y:rnd(90, 130)};
-}
-function fixNoButton(){
-  const r = noBtn.getBoundingClientRect();
-  nw = r.width; nh = r.height;
-  curX = r.left; curY = r.top;
-  noBtn.style.position='fixed';
-  noBtn.style.left='0px'; noBtn.style.top='0px';
-  noBtn.style.margin='0'; noBtn.style.zIndex='40';
-  noFixed = true;
-}
-const qb=(a,c,b,t)=>{const u=1-t; return u*u*a + 2*u*t*c + t*t*b;};
-const easeIO = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+        <div class="details-grid">
+            <div class="detail-card">
+                <svg class="detail-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="8" y="14" width="48" height="42" rx="2"/>
+                    <path d="M20 14 V 8 M 44 14 V 8 M 8 26 H 56"/>
+                    <circle cx="32" cy="40" r="8" fill="currentColor" opacity="0.15"/>
+                    <path d="M32 36 V 44 M 28 40 H 36" stroke="currentColor"/>
+                </svg>
+                <div class="detail-label">التَّارِيخ</div>
+                <div class="detail-value">السَّبْت</div>
+                <div class="detail-sub">15 شعبان 1447 هـ<br>31 يناير 2026 م</div>
+            </div>
 
-function startFlee(){
-  if(noState || S.state!=='ask' || noBtn.classList.contains('became-yes')) return;
-  S.attempts++;
-  if(S.attempts >= MAX_TRY){ surrender(); return; }
+            <div class="detail-card">
+                <svg class="detail-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="32" cy="32" r="22"/>
+                    <path d="M32 18 V 32 L 42 38"/>
+                    <path d="M14 14 L 8 8 M 56 14 L 50 8" opacity="0.5"/>
+                </svg>
+                <div class="detail-label">الوَقْت</div>
+                <div class="detail-value">المساء</div>
+                <div class="detail-sub">استقبال الضيوف 7:00 م<br>الحفل يبدأ 8:30 م</div>
+            </div>
 
-  if(!noFixed) fixNoButton();
-  if(S.attempts >= 5) noBtn.classList.add('winged');
-  setFleeMsg(FLEE_MSGS[Math.min(S.attempts-1, FLEE_MSGS.length-1)]);
-  triesEl.textContent =
-    `محاولات الإمساكِ بـ«لا»: ${AR(S.attempts)}… وفشلت جميعُها بجدارة.`;
+            <div class="detail-card">
+                <svg class="detail-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M32 8 L 56 20 V 44 L 32 56 L 8 44 V 20 Z"/>
+                    <path d="M32 8 V 56 M 8 20 L 56 44 M 56 20 L 8 44" opacity="0.3"/>
+                    <circle cx="32" cy="32" r="6" fill="currentColor" opacity="0.2"/>
+                </svg>
+                <div class="detail-label">المَكَان</div>
+                <div class="detail-value">قَاعَةُ اللُّؤْلُؤَة</div>
+                <div class="detail-sub">قاعة الأفراح الفاخرة<br>الرياض — حي الياسمين</div>
+            </div>
+        </div>
+    </section>
 
-  /* زرُّ نعم يكبر، وزرُّ لا يضمحل */
-  const k = Math.min(S.attempts, 7);
-  yesBtn.style.setProperty('--gs', (1 + k*.055).toFixed(3));
-  const noScale = 1 - k*.03;
+    <!-- ============ FAMILIES ============ -->
+    <section class="families-section reveal">
+        <div class="section-title">
+            <svg class="ornament" width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#C9A961" stroke-width="1">
+                <path d="M0 10 L 20 10 M 40 10 L 60 10"/>
+                <circle cx="30" cy="10" r="4"/>
+                <path d="M30 4 L 30 16 M 24 10 L 36 10" opacity="0.6"/>
+            </svg>
+            <h2>دَعْوَةُ الْعَائِلَتَيْنِ</h2>
+            <div class="subtitle">~ كَلِمَةٌ مِنَ الْقَلْب ~</div>
+        </div>
 
-  /* أثر فراشاتٍ صغيرة عند الموقع القديم */
-  burst(curX+nw/2, curY+nh/2, 3 + Math.min(S.attempts,4), false);
+        <div class="families-frame">
+            <div class="families-title">~ يَسُرُّنَا أَنْ نُشَارِكَكُمْ فَرْحَتَنَا ~</div>
+            <p class="families-text">
+                بِفَاضِلِ الشَّوْقِ وَطِيبِ الْأَمَانِيِّ، نَدْعُوكُمْ لِتَكُونُوا ضُيُوفًا كِرَامًا عَلَى حَفْلِ زِفَافِنَا،<br>
+                لِتُزَيِّنُوا بِحُضُورِكُمْ لَيْلَةً سَتَبْقَى فِي ذَاكِرَةِ <span class="highlight">حَبِيبَة</span> وَ <span class="highlight">نَايِل</span> إِلَى الْأَبَد.
+            </p>
 
-  const from = {x:curX, y:curY};
-  const t = fleeTarget();
-  const to = {x:t.x-nw/2, y:t.y-nh/2};
-  const ctrl = { x:(from.x+to.x)/2 + rnd(-170,170),
-                 y:(from.y+to.y)/2 + rnd(-170,170) };
-  noState = {from, ctrl, to, t0:performance.now(), dur:rnd(620,780), sc:noScale};
-}
-function updateNoFlight(now){
-  if(!noState) return;
-  let t = (now-noState.t0)/noState.dur;
-  if(t>1) t=1;
-  const e = easeIO(t);
-  const x = qb(noState.from.x, noState.ctrl.x, noState.to.x, e);
-  const y = qb(noState.from.y, noState.ctrl.y, noState.to.y, e);
-  const wob = Math.sin(t*Math.PI*2.5)*(1-t)*10;
-  noBtn.style.transform =
-    `translate(${x}px,${y}px) rotate(${wob.toFixed(1)}deg) scale(${noState.sc})`;
-  if(t>=1){ curX=noState.to.x; curY=noState.to.y; noState=null; }
-}
-function surrender(){
-  noState = null;
-  noBtn.classList.add('surrender');
-  setFleeMsg('استسلم زرُّ «لا»! حتى هو صار يقول: نعم.');
-  triesEl.textContent = 'انتهت المطاردة. النتيجة النهائية: الحبُّ ٨، و«لا» صفر.';
-  setTimeout(()=>{
-    noBtn.classList.add('became-yes','btn-look-yes');
-    noTxt.textContent = 'نعم أيضًا';
-  }, 650);
-}
+            <div class="families-names">
+                <div class="family-block">
+                    <div class="role">عَائِلَةُ الْعَرُوس</div>
+                    <div class="fname">آل بِن نَايِل</div>
+                </div>
+                <div class="family-divider"></div>
+                <div class="family-block">
+                    <div class="role">عَائِلَةُ الْعَرِيس</div>
+                    <div class="fname">آل بِن نَايِل</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-/* أحداث زرّ «لا»: يفلت قبل أن تلمسيه — فأرًا كان أم إصبعًا أم لوحة مفاتيح */
-noBtn.addEventListener('pointerenter', e=>{ if(e.pointerType==='mouse') startFlee(); });
-noBtn.addEventListener('pointerdown',  e=>{ e.preventDefault(); startFlee(); });
-noBtn.addEventListener('click', ()=>{
-  if(noBtn.classList.contains('became-yes')) celebrate(true);
-  else startFlee();
-});
-noBtn.addEventListener('keydown', e=>{
-  if(e.key==='Enter'||e.key===' '){ e.preventDefault(); startFlee(); }
-});
+    <!-- ============ PROGRAM ============ -->
+    <section class="program-section reveal" id="program">
+        <div class="section-title">
+            <svg class="ornament" width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#C9A961" stroke-width="1">
+                <path d="M0 10 L 20 10 M 40 10 L 60 10"/>
+                <circle cx="30" cy="10" r="4"/>
+                <path d="M30 4 L 30 16 M 24 10 L 36 10" opacity="0.6"/>
+            </svg>
+            <h2>بَرْنَامَجُ الْحَفْلِ</h2>
+            <div class="subtitle">~ تَسَلْسُلُ الْأُمْسِيَة ~</div>
+        </div>
 
-/* ================= الاحتفال ورسالة الحب ================= */
-function revealLines(){
-  const lines = [...loveView.querySelectorAll('.line')];
-  lines.forEach(el=>el.classList.remove('show'));
-  void loveView.offsetWidth;
-  lines.forEach((el,i)=> el.style.transitionDelay = (0.25 + i*0.42)+'s');
-  requestAnimationFrame(()=> lines.forEach(el=>el.classList.add('show')));
-  actionsEl.classList.remove('on');
-  setTimeout(()=> actionsEl.classList.add('on'), 4600);
-}
-function celebrate(fromNo){
-  if(S.state!=='ask') return;
-  S.state='love';
-  const src = fromNo ? noBtn : yesBtn;
-  const r = src.getBoundingClientRect();
-  burst(r.left+r.width/2, r.top+r.height/2, 70);
-  setTimeout(()=>burst(innerWidth*.28, innerHeight*.8, 28, true),  350);
-  setTimeout(()=>burst(innerWidth*.72, innerHeight*.8, 28, true), 600);
-  $('#loveEyebrow').textContent = fromNo
-    ? 'حتى زرُّ «لا» أحبَّك… يا لإجماعِ الكون'
-    : 'أجابت فراشتي… فانتثر الربيعُ في صدري';
-  $('#loveTitle').textContent = fromNo ? 'نعم… بلا مفرّ' : 'نعم… وأنا أحبُّكِ أكثر';
-  askView.classList.remove('on');
-  loveView.classList.add('on');
-  measureCard();
-  revealLines();
-}
-yesBtn.addEventListener('click', ()=>celebrate(false));
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">07:00 م</div>
+                <div class="timeline-title">اسْتِقْبَالُ الضُّيُوف</div>
+                <div class="timeline-desc">استقبال الضيوف وتقديم المرطبات والقهوة العربية</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">08:00 م</div>
+                <div class="timeline-title">دُخُولُ الْعَرُوسِ وَالْعَرِيس</div>
+                <div class="timeline-desc">موكب الزفاف على أنغام الموسيقى</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">09:00 م</div>
+                <div class="timeline-title">عَشَاءُ الْحَفْلِ</div>
+                <div class="timeline-desc">عشاء فاخر على الطاولة الملكية</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">10:30 م</div>
+                <div class="timeline-title">قَطْعُ كَعْكَةِ الزِّفَاف</div>
+                <div class="timeline-desc">لحظة لا تُنسى بين العروسين</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">11:00 م</div>
+                <div class="timeline-title">خَاتِمَةُ الْأُمْسِيَة</div>
+                <div class="timeline-desc">تكريم الضيوف وتوزيع الهدايا التذكارية</div>
+            </div>
+        </div>
+    </section>
 
-/* أزرار ما بعد الرسالة */
- $('#moreBtn').addEventListener('click', ()=>{
-  for(let k=0;k<3;k++)
-    setTimeout(()=>burst(rnd(innerWidth*.15, innerWidth*.85), innerHeight+30, 26, true), k*260);
-});
- $('#replayBtn').addEventListener('click', revealLines);
- $('#resetBtn').addEventListener('click', ()=>{
-  S.state='ask'; S.attempts=0; noState=null;
-  loveView.classList.remove('on'); askView.classList.add('on');
-  actionsEl.classList.remove('on');
-  yesBtn.style.setProperty('--gs', 1);
-  noBtn.classList.remove('winged','surrender','became-yes','btn-look-yes');
-  noTxt.textContent='لا';
-  noBtn.style.cssText='transition:none';       // منع قفزة متحركة عند العودة
-  noFixed=false; curX=curY=null;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{ noBtn.style.cssText=''; }));
-  setFleeMsg(''); triesEl.textContent='';
-  fleeMsgEl.classList.remove('pop');
-  measureCard();
-});
+    <!-- ============ QUOTE ============ -->
+    <section class="quote-section reveal">
+        <div class="quote-content">
+            <div class="quote-mark">"</div>
+            <p class="quote-text">
+                الْحُبُّ لَا يَتَكَلَّمُ بِالْكَلِمَاتِ، بَلْ يُسْمَعُ فِي نَبْضِ الْقُلُوبِ، وَيُرَى فِي لَمْعَانِ الْعُيُون.
+            </p>
+            <div class="quote-author">~ مِنْ أَجْمَلِ مَا قِيلَ فِي الزَّوَاجِ ~</div>
+        </div>
+    </section>
 
-/* ================= فتح الهدية ================= */
- $('#openBtn').addEventListener('click', ()=>{
-  cover.classList.add('gone');
-  setTimeout(()=> cover.style.display='none', 950);
-  stage.classList.add('on');
-  S.state='ask';
-  burst(innerWidth/2, innerHeight*.45, 26);
-  setTimeout(measureCard, 60);
-});
+    <!-- ============ RSVP ============ -->
+    <section class="rsvp-section reveal" id="rsvp">
+        <div class="section-title">
+            <svg class="ornament" width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#C9A961" stroke-width="1">
+                <path d="M0 10 L 20 10 M 40 10 L 60 10"/>
+                <circle cx="30" cy="10" r="4"/>
+                <path d="M30 4 L 30 16 M 24 10 L 36 10" opacity="0.6"/>
+            </svg>
+            <h2>تَأْكِيدُ الْحُضُورِ</h2>
+            <div class="subtitle">~ نَنْتَظِرُكُمْ بِفَارِغِ الصَّبْر ~</div>
+        </div>
 
-/* ================= المؤشر واللمس ================= */
-addEventListener('pointermove', e=>{
-  S.mx=e.clientX; S.my=e.clientY; S.lastP=performance.now();
-}, {passive:true});
-addEventListener('pointerdown', e=>{
-  S.pointerOn=true;
-  if(e.target.closest('button')) return;      // الأزرار لها شؤونها
-  spawnFlyer(e.clientX, e.clientY, true);     // كل لمسةٍ تُولِّد فراشة
-});
-addEventListener('scroll', ()=>{ measureCard(); }, {passive:true});
-addEventListener('resize', ()=>{ measureCard(); });
+        <div class="rsvp-card">
+            <h3 class="rsvp-title">سُعِدَاءُ بِحُضُورِكُمْ</h3>
+            <p class="rsvp-text">
+                نَرْجُو مِنْكُمْ تَأْكِيدَ حُضُورِكُمْ قَبْلَ مَوْعِدِ الْحَفْلِ<br>
+                لِيَتِمَّ ضِيَافَتَكُمْ عَلَى أَكْمَلِ وَجْه.
+            </p>
+            <a href="#" class="rsvp-btn" onclick="alert('شكراً لك! يرجى التواصل مع العائلة لتأكيد الحضور.'); return false;">
+                أُؤَكِّدُ الْحُضُور
+            </a>
+        </div>
+    </section>
 
-/* ================= الحديقة السفلية (تُبنى عشوائيًا) ================= */
-function buildGarden(){
-  const svg = document.createElementNS(NS,'svg');
-  svg.setAttribute('viewBox','0 0 1200 200');
-  svg.setAttribute('preserveAspectRatio','xMidYMax slice');
-  const H=200, count=16;
-  const petals=['#A93446','#C08A3E','#7E2B3C'];
-  for(let i=0;i<count;i++){
-    const bx = (i+0.5)/count*1200 + rnd(-22,22);
-    const h  = rnd(60,180);
-    const tipX = bx + rnd(-24,24), tipY = H-h;
-    const g = document.createElementNS(NS,'g');
-    g.setAttribute('class','stem');
-    g.style.setProperty('--swd', rnd(4,7).toFixed(1)+'s');
-    g.style.setProperty('animation-delay', '-'+rnd(0,5).toFixed(1)+'s');
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="footer-ornament">
+            <svg width="80" height="20" viewBox="0 0 80 20" fill="none" stroke="#C9A961" stroke-width="1">
+                <path d="M0 10 L 28 10 M 52 10 L 80 10"/>
+                <circle cx="40" cy="10" r="4" fill="#C9A961"/>
+                <path d="M40 2 L 40 18" opacity="0.5"/>
+            </svg>
+        </div>
+        <div class="footer-thanks">شُكْرًا لِحُضُورِكُمْ</div>
+        <div class="footer-couple">حَبِيبَة & نَايِل</div>
+        <div class="footer-meta">~ بِسْعَادَةٍ دَائِمَةٍ وَحَيَاةٍ مُبَارَكَة ~</div>
+    </footer>
 
-    const stem = document.createElementNS(NS,'path');
-    stem.setAttribute('d',
-      `M${bx.toFixed(1)},${H} C${(bx+rnd(-8,8)).toFixed(1)},${(H-h*.4).toFixed(1)} `+
-      `${(tipX+rnd(-14,14)).toFixed(1)},${(H-h*.72).toFixed(1)} ${tipX.toFixed(1)},${tipY.toFixed(1)}`);
-    stem.setAttribute('fill','none');
-    stem.setAttribute('stroke','#7C7F55');
-    stem.setAttribute('stroke-width', rnd(1.6,2.6).toFixed(1));
-    stem.setAttribute('stroke-linecap','round');
-    g.appendChild(stem);
+    <script>
+        // ====== Loader ======
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hide');
+            }, 1200);
+        });
 
-    /* ورقة أو ورقتان */
-    const leaves = Math.random()<.75 ? 1 : 2;
-    for(let L=0;L<leaves;L++){
-      const lx = bx+rnd(-5,5), ly = H-h*rnd(.35,.55), s = Math.random()<.5?1:-1;
-      const leaf = document.createElementNS(NS,'path');
-      leaf.setAttribute('d',
-        `M${lx.toFixed(1)},${ly.toFixed(1)} C${(lx+s*16).toFixed(1)},${(ly-10).toFixed(1)} `+
-        `${(lx+s*20).toFixed(1)},${(ly-26).toFixed(1)} ${(lx+s*2).toFixed(1)},${(ly-14).toFixed(1)} Z`);
-      leaf.setAttribute('fill','#7C7F55');
-      leaf.setAttribute('opacity','.85');
-      g.appendChild(leaf);
-    }
-    /* رأس الزهرة */
-    const pc = petals[Math.floor(Math.random()*3)];
-    const head = document.createElementNS(NS,'g');
-    const kind = Math.random();
-    if(kind < .55){                                      // أقحوانة
-      for(let p=0;p<5;p++){
-        const a = p/5*Math.PI*2;
-        const c = document.createElementNS(NS,'circle');
-        c.setAttribute('cx',(tipX+Math.cos(a)*6).toFixed(1));
-        c.setAttribute('cy',(tipY+Math.sin(a)*6).toFixed(1));
-        c.setAttribute('r','4.4'); c.setAttribute('fill',pc); c.setAttribute('opacity','.92');
-        head.appendChild(c);
-      }
-      const mid=document.createElementNS(NS,'circle');
-      mid.setAttribute('cx',tipX); mid.setAttribute('cy',tipY);
-      mid.setAttribute('r','3'); mid.setAttribute('fill','#B8873A');
-      head.appendChild(mid);
-    }else if(kind < .85){                                // خشخاشة
-      const c=document.createElementNS(NS,'circle');
-      c.setAttribute('cx',tipX); c.setAttribute('cy',tipY);
-      c.setAttribute('r','7'); c.setAttribute('fill',pc); c.setAttribute('opacity','.95');
-      head.appendChild(c);
-      const m=document.createElementNS(NS,'circle');
-      m.setAttribute('cx',tipX); m.setAttribute('cy',tipY);
-      m.setAttribute('r','2.6'); m.setAttribute('fill','#B8873A');
-      head.appendChild(m);
-    }else{                                               // برعم
-      const e=document.createElementNS(NS,'ellipse');
-      e.setAttribute('cx',tipX); e.setAttribute('cy',tipY-3);
-      e.setAttribute('rx','4'); e.setAttribute('ry','7');
-      e.setAttribute('fill',pc);
-      head.appendChild(e);
-    }
-    g.appendChild(head);
-    svg.appendChild(g);
-  }
-  $('#garden').appendChild(svg);
-}
+        // ====== Nav scroll effect ======
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
 
-/* ================= الحلقة الرئيسية ================= */
-let last = performance.now(), frame = 0;
-function loop(now){
-  const dt = Math.min(48, now-last); last = now;
-  const dn = dt/16.666;
-  frame++;
-  if(frame % 60 === 0) measureCard();
-  if(!REDUCED){
-    updateFlyers(dn);
-    updateHero(dn, now);
-  }
-  updateParticles(dn);       // تفاعلات جوهرية تبقى حتى مع تقليل الحركة
-  updateNoFlight(now);
-  requestAnimationFrame(loop);
-}
+        // ====== Countdown timer ======
+        // Wedding date: 31 January 2026, 20:30
+        const weddingDate = new Date('2026-01-31T20:30:00').getTime();
 
-/* ================= إقلاع ================= */
-buildGarden();
-initSky();
-measureCard();
-requestAnimationFrame(loop);
-</script>
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ====== Scroll reveal ======
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
